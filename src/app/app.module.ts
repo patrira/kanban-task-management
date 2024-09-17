@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 import { TaskModalComponent } from './components/task-modal/task-modal.component';
 import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-modal.component';
 import { CreateTaskModalComponent } from './components/create-task-modal/create-task-modal.component';
+import { BoardModalFrameComponent } from './shared/board-modal-frame/board-modal-frame.component';
+import { TaskModalFrameComponent } from './shared/task-modal-frame/task-modal-frame.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { CreateTaskModalComponent } from './components/create-task-modal/create-
     SidebarComponent,
     TaskModalComponent,
     EditTaskModalComponent,
-    CreateTaskModalComponent
+    CreateTaskModalComponent,
+    BoardModalFrameComponent,
+    TaskModalFrameComponent
   ],
   imports: [
     BrowserModule,

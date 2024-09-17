@@ -27,5 +27,13 @@ export const tasksReducer = createReducer(
       ...task,
       subtasks: task.subtasks.map(s => s['id'] === subtask['id'] ? subtask : s)
     }))
+  })),
+  on(addTask, (state, { task }) => ({
+    ...state,
+    tasks: [...state.tasks, task]
+  })),
+  on(updateTask, (state, { task }) => ({
+    ...state,
+    tasks: state.tasks.map(t => t.id === task.id ? task : t)
   }))
 );
