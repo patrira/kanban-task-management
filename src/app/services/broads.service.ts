@@ -1,48 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Board, Boards, Task } from '../modals/boards.interface';
-import { loadBoardsSuccess } from '../state/boards/boards.actions';
+import { Board, Boards } from '../types/boards.interface';
+import { loadBoards, addBoard, updateBoard, deleteBoard } from '../state/boards/boards.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BoardsService {
-  boards!: Boards;
-  currentBoard!: Board;
-  currentTask: Task = {
-    description: "string",
-    status: "string",
-    subtasks: [],
-    title: "string",
-    boardId: '',
-    id: undefined
-  };
-
-  indexes = {
-    boardIndex: 0,
-    columnIndex: 0,
-    taskIndex: 0,
-    subtaskIndex: 0,
-    dropColumnIndex: 0,
-    dropTaskIndex: 0,
-  };
-
   constructor(private store: Store) {}
 
   getBoards() {
-    this.boards = JSON.parse(localStorage.getItem('boards') || '[]');
-    this.store.dispatch(loadBoardsSuccess({ boards: this.boards.boards }));
+    // Dispatch the loadBoards action to load the boards
+    this.store.dispatch(loadBoards());
   }
 
   setBoards(boards: Boards) {
-    localStorage.setItem('boards', JSON.stringify(boards));
+    // Dispatch the updateBoard action to update the boards
+    this.store.dispatch(updateBoard({ board: boards.boards[0] }));
   }
 
-  setCurrentBoard(board: Board) {
-    this.currentBoard = board;
+  createBoard(board: Board) {
+    this.store.dispatch(addBoard({ board }));
   }
 
-  setCurrentTask(task: Task) {
-    this.currentTask = task;
+  deleteBoard(boardId: string) {
+    this.store.dispatch(deleteBoard({ boardId }));
   }
 }

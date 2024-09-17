@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { loadTasks, addTask, updateTask, deleteTask } from './tasks.actions';
-import { Task } from '../../modals/boards.interface';
+import { addTask, updateTask, deleteTask, updateSubtaskStatus } from './tasks.actions';
+import { Task, Subtask } from '../../types/boards.interface';
 
 export interface TasksState {
   tasks: Task[];
@@ -12,7 +12,6 @@ const initialState: TasksState = {
 
 export const tasksReducer = createReducer(
   initialState,
-  on(loadTasks, (state, { boardId }) => ({ ...state, tasks: state.tasks.filter(task => task.boardId === boardId) })),
   on(addTask, (state, { task }) => ({ ...state, tasks: [...state.tasks, task] })),
   on(updateTask, (state, { task }) => ({
     ...state,
@@ -21,5 +20,12 @@ export const tasksReducer = createReducer(
   on(deleteTask, (state, { taskId }) => ({
     ...state,
     tasks: state.tasks.filter(t => t.id !== taskId)
+  })),
+  on(updateSubtaskStatus, (state, { subtask }) => ({
+    ...state,
+    tasks: state.tasks.map(task => ({
+      ...task,
+      subtasks: task.subtasks.map(s => s.id === subtask.id ? subtask : s)
+    }))
   }))
 );

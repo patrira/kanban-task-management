@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { BoardsService } from '../services/boards.service';
-import { ModalShowService } from '../services/modal-show.service';
+import { BoardsService } from '../../services/broads.service';
+import { ModalShowService } from '../../services/modal-show.service';
+import { ColumnComponent } from '../column/column.component';
 
 @Component({
   selector: 'app-main',

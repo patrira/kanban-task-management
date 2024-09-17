@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Task, Subtask } from '../types/boards.interface';
-import { ModalShowService } from '../services/modal-show.service';
-import { BoardsService } from '../services/boards.service';
-import { DragDropService } from '../services/drag-drop.service';
-import { updateTask } from '../state/tasks/tasks.actions';
+import { Task, Subtask } from '../../modals/boards.interface';
+import { ModalShowService } from '../../services/modal-show.service';
+import { BoardsService } from '../../services/broads.service';
+import { DragDropService } from '../../services/drag-drop.service';
+import { updateTask } from '../../state/tasks/tasks.actions';
 
 @Component({
   selector: 'app-column',

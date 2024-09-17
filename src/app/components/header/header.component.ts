@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ModalShowService } from '../services/modal-show.service';
-import { toggleTheme } from '../state/ui/ui.actions';
-import { ColorThemeService } from '../services/color-theme.service';
-import { SidebarToggleService } from '../services/sidebar-toggle.service';
-import { BoardsService } from '../services/boards.service';
+import { ModalShowService } from '../../services/modal-show.service';
+import { toggleTheme } from '../../state/ui/ui.actions';
+import { ColorThemeService } from '../../services/color-theme.service';
+import { SidebarToggleService } from '../../services/sidebar-toggle.service';
+import { BoardsService } from '../../services/broads.service';
 
 @Component({
   selector: 'app-header',

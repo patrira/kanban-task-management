@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ColorThemeService } from '../services/color-theme.service';
-import { SidebarToggleService } from '../services/sidebar-toggle.service';
-import { ModalShowService } from '../services/modal-show.service';
-import { selectAllBoards } from '../state/boards/boards.selectors';
-import { toggleSidebar } from '../state/ui/ui.actions';
-import { BoardsService } from '../services/boards.service';
+import { ColorThemeService } from '../../services/color-theme.service';
+import { SidebarToggleService } from '../../services/sidebar-toggle.service';
+import { ModalShowService } from '../../services/modal-show.service';
+import { selectAllBoards } from '../../state/boards/boards.selectors';
+import { toggleSidebar } from '../../state/ui/ui.actions';
+import { BoardsService } from '../../services/broads.service';
 
 @Component({
   selector: 'app-sidebar',

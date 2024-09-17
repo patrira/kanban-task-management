@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { BoardsService } from '../../services/boards.service';
+import { BoardsService } from '../../services/broads.service';
 import { loadBoards, loadBoardsSuccess } from './boards.actions';
 
 @Injectable()
