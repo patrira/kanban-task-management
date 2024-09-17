@@ -1,1 +1,9 @@
-<p>edit-task-modal works!</p>
+<app-task-modal-frame modalName="Edit Task"
+[titleValue]="boardsService.currentTask.title"
+[descriptionValue]="boardsService.currentTask.description"
+[subtasks]="subtaskCopy"
+[statusValues]="boardsService.currentBoard.columns"
+buttonName="Save Changes"
+>
+</app-task-modal-frame>
+

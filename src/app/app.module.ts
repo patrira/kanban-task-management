@@ -14,6 +14,8 @@ import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-m
 import { CreateTaskModalComponent } from './components/create-task-modal/create-task-modal.component';
 import { BoardModalFrameComponent } from './shared/board-modal-frame/board-modal-frame.component';
 import { TaskModalFrameComponent } from './shared/task-modal-frame/task-modal-frame.component';
+import { ConfirmDeleteBoardComponent } from './components/confirm-delete-board/confirm-delete-board.component';
+import { ConfirmDeleteTaskComponent } from './components/confirm-delete-task/confirm-delete-task.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { TaskModalFrameComponent } from './shared/task-modal-frame/task-modal-fr
     EditTaskModalComponent,
     CreateTaskModalComponent,
     BoardModalFrameComponent,
-    TaskModalFrameComponent
+    TaskModalFrameComponent,
+    ConfirmDeleteBoardComponent,
+    ConfirmDeleteTaskComponent
   ],
   imports: [
     BrowserModule,
