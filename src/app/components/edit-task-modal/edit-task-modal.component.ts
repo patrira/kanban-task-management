@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Task, Subtask } from '../types/boards.interface';
-import { updateTask } from '../state/tasks/tasks.actions';
-import { selectCurrentTask } from '../state/tasks/tasks.selectors';
+import { Task, Subtask } from '../../modals/boards.interface';
+import { updateTask } from '../../state/tasks/tasks.actions';
+import { selectCurrentTask } from '../../state/tasks/tasks.selectors';
 
 @Component({
   selector: 'app-edit-task-modal',

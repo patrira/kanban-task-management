@@ -24,6 +24,7 @@ export interface Task{
 }
 
 export interface Subtask{
+    [x: string]: any
     isCompleted: boolean
     title: string
 }

@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SidebarToggleService } from './services/sidebar-toggle.service';
 import { loadBoards, setCurrentBoard } from './state/boards/boards.actions';
-import { openModal } from './state/ui/ui.actions';
-import { toggleTheme } from './state/ui/ui.actions';
 import { BoardsService } from './services/broads.service';
 import { ColorThemeService } from './services/color-theme.service';
 import { selectAllBoards } from './state/boards/boards.selectors';

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Task, Subtask } from '../types/boards.interface';
-import { addTask } from '../state/tasks/tasks.actions';
+import { Task, Subtask } from '../../modals/boards.interface';
+import { addTask } from '../../state/tasks/tasks.actions';
 
 @Component({
   selector: 'app-create-task-modal',
@@ -13,7 +13,9 @@ export class CreateTaskModalComponent {
     description: '',
     status: 'TODO',
     subtasks: [],
-    title: ''
+    title: '',
+    boardId: '',
+    id: undefined
   };
 
   constructor(private store: Store) {}
@@ -23,7 +25,7 @@ export class CreateTaskModalComponent {
   }
 
   createTask() {
-    // Dispatch addTask action to create a new task
+  
     this.store.dispatch(addTask({ task: this.newTask }));
   }
 }
