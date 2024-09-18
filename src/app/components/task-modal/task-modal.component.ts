@@ -22,7 +22,6 @@ export class TaskModalComponent {
     public modalShowService: ModalShowService,
     public boardsService: BoardsService
   ) {
-    
     this.currentTask$ = this.store.select(selectCurrentTask, { taskId: this.taskId });
   }
 
@@ -35,20 +34,22 @@ export class TaskModalComponent {
     this.store.dispatch(updateSubtaskStatus({ subtask }));  
   }
 
-  changeStatus(value: string, task: Task) {
-    task.status = value;
-    this.store.dispatch(updateTask({
-      task,
-      boardId: ''
-    }));  
-    this.modalShowService.closeModal();
+  changeStatus(value: string, task: Task | null) {
+    if (task) {
+      task.status = value;
+      this.store.dispatch(updateTask({
+        task,
+        boardId: ''  
+      }));
+      this.modalShowService.closeModal();
+    }
   }
 
   openDeleteTaskModal() {
     this.modalShowService.openDeleteTaskModal();
   }
 
-  filterCompletedTasks(subtasks: Array<Subtask>): number {
+  filterCompletedTasks(subtasks: Subtask[] = []): number {
     return subtasks.filter(subtask => subtask.isCompleted).length;
   }
 }

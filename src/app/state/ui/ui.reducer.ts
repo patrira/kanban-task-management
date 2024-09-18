@@ -9,7 +9,7 @@ export interface UIState {
 
 const initialState: UIState = {
   sidebarOpen: true,
-  theme: 'dark', 
+  theme: 'light', 
   activeModal: null
 };
 
@@ -20,7 +20,7 @@ export const uiReducer = createReducer(
   
   on(toggleTheme, state => ({
     ...state,
-    theme: state.theme === 'dark' ? 'light' : 'dark' as 'light' | 'dark'  
+    theme: state.theme === 'light' ? 'dark' : 'light' as 'light' | 'dark'  
   })),
   
   on(openModal, (state, { modalType }) => ({ ...state, activeModal: modalType })),

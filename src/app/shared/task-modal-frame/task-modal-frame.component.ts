@@ -31,6 +31,7 @@ export class TaskModalFrameComponent implements OnInit {
 
   currentTask$: Observable<Task | undefined>; 
   taskId!: string;
+boardsService: any;
 
   constructor(
     private store: Store,

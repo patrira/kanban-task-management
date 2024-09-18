@@ -6,7 +6,7 @@ import { toggleSidebar } from '../state/ui/ui.actions';
   providedIn: 'root'
 })
 export class SidebarToggleService {
-  sidebarOpened = true;
+  sidebarOpened: boolean = true;
   selectedIndex = 0;
 
   constructor(private store: Store) {}

@@ -5,6 +5,10 @@ import { Boards, Board, Task } from '../modals/boards.interface';
   providedIn: 'root'
 })
 export class BoardsService {
+[x: string]: any;
+  setCurrentBoard(arg0: Board) {
+    throw new Error('Method not implemented.');
+  }
   setBoards(boards: any) {
     throw new Error('Method not implemented.');
   }
@@ -12,7 +16,9 @@ export class BoardsService {
     throw new Error('Method not implemented.');
   }
   currentBoard: Board | null = null;  
-  currentTask: Task | null = null;    
+  currentTask: Task | null = null; 
+  boardsData: Boards | null = null;  // Holds the boards data
+     
 
   indexes!: { taskIndex: number; columnIndex: number; dropColumnIndex: number; dropTaskIndex: number };
 
@@ -78,5 +84,11 @@ export class BoardsService {
   }
   setCurrentTask(task: Task) {
     this.currentTask = task;
+  }
+  getBoards() {
+    if (!this.boardsData) {
+      this.boardsData = this.getBoardsFromStorage();
+    }
+    return this.boardsData;
   }
 }

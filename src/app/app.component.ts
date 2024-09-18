@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { loadBoards } from './state/boards/boards.actions';
+import { SidebarToggleService } from './services/sidebar-toggle.service';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +9,10 @@ import { loadBoards } from './state/boards/boards.actions';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-sidebarService: any;
+
 modalShowService: any;
 boardsService: any;
-  constructor(private store: Store) {}
+  constructor(private store: Store, public sidebarService: SidebarToggleService) {}
 
   ngOnInit() {
     
