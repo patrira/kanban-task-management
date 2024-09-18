@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700&display=swap');
 
-// SCSS VARIABLES//
+
 $balck: #000112;
 $veryDarkGrey: #20212C;
 $darkGrey: #2B2C37;
@@ -15,7 +15,7 @@ $mainPurpleHover: #A8A4FF;
 $red: #EA5555;
 $redHover: #FF9898;
 
-//CSS VARIABLES//
+
 :root{
     --color-bg: #20212C;
     --color-sec-bg: #2B2C37;
@@ -54,7 +54,7 @@ body{
     box-sizing: border-box;
 }
 
-//TYPOGRAPHY//
+
 .heading-xl{
     font-size: 24px;
     font-weight: 700;
@@ -87,7 +87,7 @@ body{
     color: var(--color-text);
 }
 
-//BUTTONS//
+
 
 .btn{
     font-family: "Plus Jakarta Sans", sans-serif;

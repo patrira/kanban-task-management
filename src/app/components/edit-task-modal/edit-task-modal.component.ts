@@ -13,12 +13,13 @@ import { selectCurrentTask } from '../../state/tasks/tasks.selectors';
 export class EditTaskModalComponent {
   currentTask$: Observable<Task | undefined>;
   subtaskCopy: Subtask[] = [];
+boardsService: any;
 
   constructor(private store: Store) {
-    // Select current task from the store
+    
     this.currentTask$ = this.store.select(selectCurrentTask);
 
-    // Clone subtasks for editing
+    
     this.currentTask$.subscribe(task => {
       if (task) {
         this.subtaskCopy = task.subtasks.map(subtask => ({ ...subtask }));
@@ -27,7 +28,10 @@ export class EditTaskModalComponent {
   }
 
   saveTask(task: Task) {
-    // Dispatch updateTask action to update the task and its subtasks
-    this.store.dispatch(updateTask({ task }));
+    
+    this.store.dispatch(updateTask({
+      task,
+      boardId: ''
+    }));
   }
 }

@@ -12,21 +12,26 @@ import { Observable } from 'rxjs';
   styleUrls: ['./confirm-delete-task.component.scss']
 })
 export class ConfirmDeleteTaskComponent {
-  currentTask$: Observable<Task | undefined>; 
+  
+  currentTask$!: Observable<Task | undefined>; 
   currentTaskIndex: number = 0; 
+boardsService: any;
 
   constructor(
     private store: Store,
     public modalShowService: ModalShowService
   ) {
-    this.currentTask$ = this.store.select(selectCurrentTask); 
+   
   }
 
   deleteTask() {
     this.currentTask$.subscribe((task) => {
       if (task) {
         
-        this.store.dispatch(deleteTask({ taskId: task.id }));
+        this.store.dispatch(deleteTask({
+          taskId: task.id,
+          boardId: ''
+        }));
 
         
         this.modalShowService.closeModal();

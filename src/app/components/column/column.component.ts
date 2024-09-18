@@ -27,7 +27,7 @@ export class ColumnComponent {
   ) {}
 
   onTaskClick(i: number) {
-    this.boardsService.setCurrentTask(this.tasks[i]);
+    this.boardsService.currentTask = this.tasks[i];  // Updated to use currentTask
     this.modalShowService.openTaskModal();
     this.boardsService.indexes.columnIndex = this.columnIndex;
     this.boardsService.indexes.taskIndex = i;
@@ -55,8 +55,11 @@ export class ColumnComponent {
 
   onDrop(e: DragEvent) {
     this.dragDropService.drop(e);
-    const updatedTask = this.boardsService.currentTask;
-    this.store.dispatch(updateTask({ task: updatedTask }));
+    const updatedTask = this.boardsService.currentTask!;
+    this.store.dispatch(updateTask({
+      task: updatedTask,
+      boardId: ''
+    }));
   }
 
   onDragEnd(e: DragEvent, task: Task) {

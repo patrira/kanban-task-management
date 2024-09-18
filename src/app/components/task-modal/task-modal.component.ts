@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Subtask, Task } from '../types/boards.interface';
-import { BoardsService } from '../services/boards.service';
-import { ModalShowService } from '../services/modal-show.service';
-import { updateTask, updateSubtaskStatus } from '../state/tasks/tasks.actions';
-import { selectCurrentTask } from '../state/tasks/tasks.selectors';
+import { Subtask, Task } from '../../modals/boards.interface';
+import { BoardsService } from '../../services/broads.service';
+import { ModalShowService } from '../../services/modal-show.service';
+import { updateTask, updateSubtaskStatus } from '../../state/tasks/tasks.actions';
+import { selectCurrentTask } from '../../state/tasks/tasks.selectors';
 
 @Component({
   selector: 'app-task-modal',
@@ -15,14 +15,15 @@ import { selectCurrentTask } from '../state/tasks/tasks.selectors';
 export class TaskModalComponent {
   currentTask$: Observable<Task | undefined>;
   showEditDeleteContainer = false;
+  taskId!: string;
 
   constructor(
     private store: Store,
     public modalShowService: ModalShowService,
     public boardsService: BoardsService
   ) {
-    // Select the current task from the NgRx store
-    this.currentTask$ = this.store.select(selectCurrentTask);
+    
+    this.currentTask$ = this.store.select(selectCurrentTask, { taskId: this.taskId });
   }
 
   openEditDeleteContainer() {
@@ -31,12 +32,15 @@ export class TaskModalComponent {
 
   handleCheckboxClick(subtask: Subtask, i: number) {
     subtask.isCompleted = !subtask.isCompleted;
-    this.store.dispatch(updateSubtaskStatus({ subtask }));  // Dispatch action to update subtask status
+    this.store.dispatch(updateSubtaskStatus({ subtask }));  
   }
 
   changeStatus(value: string, task: Task) {
     task.status = value;
-    this.store.dispatch(updateTask({ task }));  // Dispatch action to update task status
+    this.store.dispatch(updateTask({
+      task,
+      boardId: ''
+    }));  
     this.modalShowService.closeModal();
   }
 

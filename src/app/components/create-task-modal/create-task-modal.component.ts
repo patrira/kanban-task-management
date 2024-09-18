@@ -17,6 +17,7 @@ export class CreateTaskModalComponent {
     boardId: '',
     id: undefined
   };
+boardsService: any;
 
   constructor(private store: Store) {}
 
@@ -26,6 +27,9 @@ export class CreateTaskModalComponent {
 
   createTask() {
   
-    this.store.dispatch(addTask({ task: this.newTask }));
+    this.store.dispatch(addTask({
+      task: this.newTask,
+      boardId: ''
+    }));
   }
 }

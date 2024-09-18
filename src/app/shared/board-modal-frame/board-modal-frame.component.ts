@@ -8,7 +8,6 @@ import { createBoard, updateBoard } from '../../state/boards/boards.actions';
 import { selectCurrentBoard } from '../../state/boards/boards.selectors';
 import { Observable } from 'rxjs';
 
-
 @Component({
   selector: 'app-board-modal-frame',
   templateUrl: './board-modal-frame.component.html',
@@ -32,14 +31,14 @@ export class BoardModalFrameComponent implements OnInit {
   columnsCopy!: Array<Column>;
   columnPlaceholders = ['e.g Todo', 'e.g Doing', 'e.g Done'];
 
-  currentBoard$: Observable<Board | undefined>;  // Observing the current board from NgRx
+  currentBoard$: Observable<Board | null>;  // Changed to Observable<Board | null>
 
   constructor(
     private store: Store,
     public modalShowService: ModalShowService,
     public sidebarService: SidebarToggleService
   ) {
-    this.currentBoard$ = this.store.select(selectCurrentBoard);  // Use NgRx selector
+    this.currentBoard$ = this.store.select(selectCurrentBoard); 
   }
 
   ngOnInit() {
@@ -103,7 +102,7 @@ export class BoardModalFrameComponent implements OnInit {
       id: undefined
     };
 
-    this.store.dispatch(createBoard({ board: newBoard }));  // Dispatch action to create new board
+    this.store.dispatch(createBoard({ board: newBoard }));  
     this.modalShowService.closeModal();
   }
 }

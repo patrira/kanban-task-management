@@ -10,5 +10,5 @@ export const selectAllBoards = createSelector(
 
 export const selectCurrentBoard = createSelector(
   selectBoardsState,
-  (state: BoardsState, props: { boardId: string }) => state.boards.find(board => board.id === props.boardId)
+  (state: BoardsState) => state.currentBoard
 );

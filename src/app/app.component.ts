@@ -1,13 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { SidebarToggleService } from './services/sidebar-toggle.service';
-import { loadBoards, setCurrentBoard } from './state/boards/boards.actions';
-import { BoardsService } from './services/broads.service';
-import { ColorThemeService } from './services/color-theme.service';
-import { selectAllBoards } from './state/boards/boards.selectors';
-import { Observable } from 'rxjs';
-import { Board } from './modals/boards.interface';
-import data from '../assets/data.json';
+import { loadBoards } from './state/boards/boards.actions';
 
 @Component({
   selector: 'app-root',
@@ -15,42 +8,13 @@ import data from '../assets/data.json';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  boards$: Observable<Board[]>; 
-
-  constructor(
-    public sidebarService: SidebarToggleService,
-    public boardsService: BoardsService,
-    public colorThemeService: ColorThemeService,
-    private store: Store
-  ) {
-    
-    this.boards$ = this.store.select(selectAllBoards);
-
-   
-    if (localStorage.getItem("boards") === null) {
-      
-      this.store.dispatch(loadBoards());
-      this.boardsService.setBoards(data); 
-    }
-
-    
-    if (localStorage.getItem("lightMode") === null) {
-      this.colorThemeService.setTheme("false");
-    }
-    this.colorThemeService.getTheme(); 
-  }
+sidebarService: any;
+modalShowService: any;
+boardsService: any;
+  constructor(private store: Store) {}
 
   ngOnInit() {
     
-    if (window.innerWidth <= 575) {
-      this.sidebarService.sidebarOpened = false;
-    }
-
-    
-    this.boards$.subscribe((boards) => {
-      if (boards && boards.length > 0) {
-        this.store.dispatch(setCurrentBoard({ board: boards[0] })); 
-      }
-    });
+    this.store.dispatch(loadBoards());
   }
 }

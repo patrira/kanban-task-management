@@ -8,6 +8,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/side-bar/side-bar.component';
 import { ColumnComponent } from './components/column/column.component';
 import { StoreModule } from '@ngrx/store';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TaskModalComponent } from './components/task-modal/task-modal.component';
 import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-modal.component';
@@ -35,7 +36,8 @@ import { ConfirmDeleteTaskComponent } from './components/confirm-delete-task/con
   imports: [
     BrowserModule,
     CommonModule,
-  
+  FormsModule,
+  ReactiveFormsModule,
     AppRoutingModule,
     StoreModule.forRoot({}, {})
   ],

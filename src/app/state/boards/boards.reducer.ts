@@ -1,44 +1,38 @@
 import { createReducer, on } from '@ngrx/store';
-import { loadBoardsSuccess, addBoard, updateBoard, deleteBoard, createBoard, setCurrentBoard } from './boards.actions';
-import { Board } from '../../modals/boards.interface';
-
-export interface BoardsState {
-  boards: Board[];
-}
+import { loadBoardsSuccess, loadBoardsFailure, createBoard, updateBoard, deleteBoard, setCurrentBoard } from './boards.actions';
+import { BoardsState } from '../../modals/boards.interface';  // Corrected import path
 
 const initialState: BoardsState = {
-  boards: []
+  boards: [],
+  currentBoard: null
 };
 
 export const boardsReducer = createReducer(
   initialState,
-  on(loadBoardsSuccess, (state, { boards }) => ({ ...state, boards })),
-  on(addBoard, (state, { board }) => ({ ...state, boards: [...state.boards, board] })),
-  on(updateBoard, (state, { board }) => ({
+  on(loadBoardsSuccess, (state, { boards }) => ({
     ...state,
-    boards: state.boards.map(b => b.id === board.id ? board : b)
+    boards: boards.boards
   })),
-  on(deleteBoard, (state, { boardId }) => ({
+  on(loadBoardsFailure, state => ({
     ...state,
-    boards: state.boards.filter(b => b.id !== boardId)
+    boards: []
   })),
-
   on(createBoard, (state, { board }) => ({
     ...state,
     boards: [...state.boards, board]
   })),
   on(updateBoard, (state, { board }) => ({
     ...state,
-    boards: state.boards.map(b => b.id === board.id ? board : b)
+    boards: state.boards.map((b) => b.id === board.id ? board : b)
   })),
-
+  on(deleteBoard, (state, { boardId }) => ({
+    ...state,
+    boards: state.boards.filter(board => board.id !== boardId)
+  })),
   on(setCurrentBoard, (state, { board }) => ({
     ...state,
     currentBoard: board
   }))
 );
 
-
-
-
-  
+export { BoardsState };

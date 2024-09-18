@@ -14,7 +14,7 @@ export class ColorThemeService {
     this.lightMode = !this.lightMode;
     this.setTheme(this.lightMode);
     document.documentElement.setAttribute('data-theme', this.lightMode ? 'light' : 'dark');
-    this.store.dispatch(toggleTheme()); // Dispatch theme toggle action
+    this.store.dispatch(toggleTheme()); 
   }
 
   setTheme(lightMode: boolean) {

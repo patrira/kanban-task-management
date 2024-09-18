@@ -30,17 +30,20 @@ export class DragDropService {
     e.preventDefault();
     const { taskIndex, columnIndex, dropColumnIndex, dropTaskIndex } = this.boardsService.indexes;
 
-    // Remove task from the original position
-    this.boardsService.currentBoard.columns[columnIndex].tasks.splice(taskIndex, 1);
+    
+    this.boardsService.currentBoard!.columns[columnIndex].tasks.splice(taskIndex, 1);
 
     if (this.dragging) {
-      this.dragging.status = this.boardsService.currentBoard.columns[dropColumnIndex].name;
-      // Insert task into the new position
-      this.boardsService.currentBoard.columns[dropColumnIndex].tasks.splice(dropTaskIndex, 0, this.dragging);
-      this.store.dispatch(updateTask({ task: this.dragging }));
+      this.dragging.status = this.boardsService.currentBoard!.columns[dropColumnIndex].name;
+      
+      this.boardsService.currentBoard!.columns[dropColumnIndex].tasks.splice(dropTaskIndex, 0, this.dragging);
+      this.store.dispatch(updateTask({
+        task: this.dragging,
+        boardId: ''
+      }));
     }
 
     this.dragging = undefined;
-    this.boardsService.setBoards(this.boardsService.boards);  // Save updated boards
+    this.boardsService.setBoards(this.boardsService.boards);  
   }
 }

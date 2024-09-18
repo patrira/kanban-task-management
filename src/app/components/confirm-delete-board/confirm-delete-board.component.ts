@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 export class ConfirmDeleteBoardComponent {
   boards$: Observable<Board[]>; 
   currentBoardIndex: number = 0; 
+boardsService: any;
 
   constructor(
     private store: Store,

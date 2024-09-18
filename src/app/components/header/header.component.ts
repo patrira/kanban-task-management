@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,  } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ModalShowService } from '../../services/modal-show.service';
 import { toggleTheme } from '../../state/ui/ui.actions';
@@ -11,14 +11,16 @@ import { BoardsService } from '../../services/broads.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent  {
   constructor(
     public colorTheme: ColorThemeService,
     public sidebarService: SidebarToggleService,
     public boardsService: BoardsService,
     public modalShowService: ModalShowService,
     private store: Store
-  ) {}
+  ) {
+    
+  }
 
   openEditBoardModal() {
     this.modalShowService.openEditBoardModal();
@@ -31,7 +33,7 @@ export class HeaderComponent {
   }
 
   handleAddNewTask() {
-    this.boardsService.currentTask.status = '';
+    this.boardsService.currentTask!.status = '';
     this.modalShowService.openCreateTaskModal();
   }
 

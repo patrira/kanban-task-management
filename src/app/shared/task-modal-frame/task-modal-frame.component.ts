@@ -29,13 +29,13 @@ export class TaskModalFrameComponent implements OnInit {
   name = new FormControl('', Validators.required);
   subtaskPlaceholders = ['e.g. Make coffee', 'e.g. Drink coffee & smile'];
 
-  currentTask$: Observable<Task | undefined>;  // Observing the current task from NgRx
+  currentTask$: Observable<Task | undefined>; 
 
   constructor(
     private store: Store,
     public modalShowService: ModalShowService
   ) {
-    this.currentTask$ = this.store.select(selectCurrentTask);  // Use NgRx selector
+    this.currentTask$ = this.store.select(selectCurrentTask);  
   }
 
   ngOnInit() {
@@ -76,7 +76,10 @@ export class TaskModalFrameComponent implements OnInit {
           status
         };
 
-        this.store.dispatch(updateTask({ task: updatedTask }));  // Dispatch update task action
+        this.store.dispatch(updateTask({
+          task: updatedTask,
+          boardId: ''
+        }));  
         this.modalShowService.closeModal();
       }
     });
@@ -103,7 +106,10 @@ export class TaskModalFrameComponent implements OnInit {
       id: undefined
     };
 
-    this.store.dispatch(addTask({ task: newTask }));  // Dispatch create task action
+    this.store.dispatch(addTask({
+      task: newTask,
+      boardId: ''
+    })); 
     this.modalShowService.closeModal();
   }
 }

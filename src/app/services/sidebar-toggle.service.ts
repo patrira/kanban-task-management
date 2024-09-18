@@ -13,6 +13,6 @@ export class SidebarToggleService {
 
   toggleSidebar() {
     this.sidebarOpened = !this.sidebarOpened;
-    this.store.dispatch(toggleSidebar());  // Dispatch the toggleSidebar action
+    this.store.dispatch(toggleSidebar());  
   }
 }

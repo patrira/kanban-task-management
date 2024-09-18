@@ -8,9 +8,9 @@ import { toggleSidebar } from '../../state/ui/ui.actions';
 import { BoardsService } from '../../services/broads.service';
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  selector: 'app-side-bar',
+  templateUrl: './side-bar.component.html',
+  styleUrls: ['./side-bar.component.scss']
 })
 export class SidebarComponent {
   boards$ = this.store.select(selectAllBoards);

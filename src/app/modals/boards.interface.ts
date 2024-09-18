@@ -28,3 +28,10 @@ export interface Subtask{
     isCompleted: boolean
     title: string
 }
+export interface BoardsState {
+    boards: Board[];
+    currentBoard: Board | null;
+  }
+  export interface TasksState {
+    tasks: Task[];
+  }

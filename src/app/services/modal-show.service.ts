@@ -6,7 +6,14 @@ import { openModal, closeModal } from '../state/ui/ui.actions';
   providedIn: 'root'
 })
 export class ModalShowService {
+closeEditDeleteContainer() {
+throw new Error('Method not implemented.');
+}
+onEditDeleteContainerClick() {
+throw new Error('Method not implemented.');
+}
   darkBackground = false;
+showEditDeleteContainer: any;
 
   constructor(private store: Store) {}
 
