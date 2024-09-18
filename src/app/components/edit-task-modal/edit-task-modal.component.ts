@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Task, Subtask } from '../../modals/boards.interface';
 import { updateTask } from '../../state/tasks/tasks.actions';
@@ -14,17 +14,13 @@ export class EditTaskModalComponent {
   currentTask$: Observable<Task | undefined>;
   subtaskCopy: Subtask[] = [];
 boardsService: any;
+  taskId!: string;
 
   constructor(private store: Store) {
     
-    this.currentTask$ = this.store.select(selectCurrentTask);
-
-    
-    this.currentTask$.subscribe(task => {
-      if (task) {
-        this.subtaskCopy = task.subtasks.map(subtask => ({ ...subtask }));
-      }
-    });
+    this.currentTask$ = this.store.pipe(
+      select(selectCurrentTask, { taskId: this.taskId })
+    );
   }
 
   saveTask(task: Task) {

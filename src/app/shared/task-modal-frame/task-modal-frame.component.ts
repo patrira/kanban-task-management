@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { ModalShowService } from '../../services/modal-show.service';
 import { Column, Subtask, Task } from '../../modals/boards.interface';
 import { updateTask, addTask } from '../../state/tasks/tasks.actions';
@@ -30,12 +30,15 @@ export class TaskModalFrameComponent implements OnInit {
   subtaskPlaceholders = ['e.g. Make coffee', 'e.g. Drink coffee & smile'];
 
   currentTask$: Observable<Task | undefined>; 
+  taskId!: string;
 
   constructor(
     private store: Store,
     public modalShowService: ModalShowService
   ) {
-    this.currentTask$ = this.store.select(selectCurrentTask);  
+    this.currentTask$ = this.store.pipe(
+      select(selectCurrentTask, { taskId: this.taskId })
+    );  
   }
 
   ngOnInit() {
