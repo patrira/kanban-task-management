@@ -107,7 +107,7 @@ boardsService: any;
       })).filter(subtask => !!subtask.title),
       status,
       boardId: '',
-      id: undefined
+      id: ""
     };
 
     this.store.dispatch(addTask({

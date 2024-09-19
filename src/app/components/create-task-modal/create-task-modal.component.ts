@@ -15,8 +15,10 @@ export class CreateTaskModalComponent {
     subtasks: [],
     title: '',
     boardId: '',
-    id: undefined
+    id: ''  
   };
+  
+  
 boardsService: any;
 
   constructor(private store: Store) {}
@@ -26,10 +28,10 @@ boardsService: any;
   }
 
   createTask() {
-  
     this.store.dispatch(addTask({
       task: this.newTask,
       boardId: ''
     }));
   }
+  
 }

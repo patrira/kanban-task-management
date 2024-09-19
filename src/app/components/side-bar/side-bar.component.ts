@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { Board, Board1 } from '../../modals/boards.interface';
 import { loadBoards } from '../../state/board/board.actions';
 import { BoardState } from '../../state/board/board.state';
+import { SelectedBoardService } from '../../services/selected-board-service.service'; 
 
 @Component({
   selector: 'app-side-bar',
@@ -22,11 +23,13 @@ export class SidebarComponent implements OnInit {
     public colorTheme: ColorThemeService,
     public sidebarService: SidebarToggleService,
     public modalShowService: ModalShowService,
-    private store: Store<{board: BoardState}>
+    private store: Store<{ board: BoardState }>,
+    private selectedBoardService: SelectedBoardService 
   ) {}
 
   ngOnInit() {
     this.boards$ = this.store.select((state) => state.board.boards);
+
     this.boards$.subscribe((boards) => {
       if (boards.length > 0) {
         this.totalBoards = boards.length;
@@ -35,19 +38,23 @@ export class SidebarComponent implements OnInit {
     this.store.dispatch(loadBoards());
   }
 
-  handleOnBoardClick(index: number, board: Board) {
-    if (window.innerWidth <= 575) {
-      this.toggleSidebar();  
-    }
-
-    
-  }
-
   onCreateBoardClick() {
     if (window.innerWidth <= 575) {
       this.toggleSidebar();  
     }
     this.modalShowService.openCreateBoardModal();  
+  }
+
+  handleOnBoardClick(index: number, board: Board) {
+    if (window.innerWidth <= 575) {
+      this.toggleSidebar();  
+    }
+    
+    // Set the selected board in the shared service
+    this.selectedBoardService.setSelectedBoard(board);
+    
+    // Log the board data to the console
+    console.log('Selected Board:', board);
   }
 
   toggleSidebar() {

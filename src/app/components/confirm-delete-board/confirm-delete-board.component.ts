@@ -28,24 +28,22 @@ boardsService: any;
     this.boards$.subscribe((boards) => {
       if (boards.length > 0) {
         const boardToDelete = boards[this.currentBoardIndex];
-
-        // Dispatch action to delete board
-        this.store.dispatch(deleteBoard({ boardId: boardToDelete.id }));
-
-        // Set the first board as the current board after deletion
-        const updatedBoards = boards.filter(board => board.id !== boardToDelete.id);
-        if (updatedBoards.length > 0) {
-          this.store.dispatch(setCurrentBoard({ board: updatedBoards[0] }));
+  
+        if (boardToDelete.id) {  // Check if id is defined
+          this.store.dispatch(deleteBoard({ boardId: boardToDelete.id }));
+  
+          const updatedBoards = boards.filter(board => board.id !== boardToDelete.id);
+          if (updatedBoards.length > 0) {
+            this.store.dispatch(setCurrentBoard({ board: updatedBoards[0] }));
+          }
+  
+          this.store.dispatch(toggleSidebar());
+          this.modalShowService.closeModal();
         }
-
-        
-        this.store.dispatch(toggleSidebar());
-
-       
-        this.modalShowService.closeModal();
       }
     });
   }
+  
 
   cancelDelete() {
     this.modalShowService.closeModal(); 

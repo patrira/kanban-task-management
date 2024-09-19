@@ -12,10 +12,7 @@ export class BoardsService {
   indexes = { taskIndex: 0, columnIndex: 0, dropColumnIndex: 0, dropTaskIndex: 0 };
   
   
-  // getBoards(): Observable<Boards[]> {
-  //   console.log("Data", data)
-  //   return of(data);
-  // }
+  
 
   getBoardsFromStorage(): Boards | null {
     const boards = localStorage.getItem('boards');

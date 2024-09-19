@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BoardsService } from '../../services/boards.service';
 import { ModalShowService } from '../../services/modal-show.service';
-import { Board, Column } from '../../modals/boards.interface'; // Import necessary interfaces
+import { SelectedBoardService } from '../../services/selected-board-service.service'; 
+import { Board, Column } from '../../modals/boards.interface';
 
 @Component({
   selector: 'app-main',
@@ -10,12 +11,22 @@ import { Board, Column } from '../../modals/boards.interface'; // Import necessa
 })
 export class MainComponent implements OnInit {
   colors = ["#49C4E5", "#8471F2", "#67E2AE", "#d6d45a", "#e09660", "#e0635e", "#de5fc7", "#5d64de"];
+  selectedBoard: Board | null = null;
 
-  constructor(public boardsService: BoardsService, public modalShowService: ModalShowService) {}
+  constructor(
+    public boardsService: BoardsService,
+    public modalShowService: ModalShowService,
+    private selectedBoardService: SelectedBoardService // Inject the service
+  ) {}
 
   ngOnInit() {
     // Initialize currentBoard if needed
     this.boardsService.initializeBoards();
+
+    // Subscribe to the selected board observable
+    this.selectedBoardService.selectedBoard$.subscribe(board => {
+      this.selectedBoard = board;
+    });
   }
 
   onNewColumnClick() {
@@ -27,7 +38,6 @@ export class MainComponent implements OnInit {
   }
 
   get columns(): Column[] {
-    // Return an empty array if currentBoard is undefined
-    return this.boardsService.currentBoard?.columns ?? [];
+    return this.selectedBoard?.columns ?? []; // Use the selected board
   }
 }

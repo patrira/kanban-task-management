@@ -25,7 +25,9 @@ const data: Root1 = {
                   "title": "Welcome page",
                   "isCompleted": false
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             },
             {
               "title": "Build UI for search",
@@ -36,7 +38,9 @@ const data: Root1 = {
                   "title": "Search page",
                   "isCompleted": false
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             },
             {
               "title": "Build settings UI",
@@ -51,7 +55,9 @@ const data: Root1 = {
                   "title": "Billing page",
                   "isCompleted": false
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             },
             {
               "title": "QA and test all major user journeys",
@@ -66,7 +72,9 @@ const data: Root1 = {
                   "title": "External testing",
                   "isCompleted": false
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             }
           ]
         },
@@ -90,7 +98,9 @@ const data: Root1 = {
                   "title": "Search page",
                   "isCompleted": false
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             },
             {
               "title": "Add account management endpoints",
@@ -109,7 +119,9 @@ const data: Root1 = {
                   "title": "Update payment method",
                   "isCompleted": false
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             },
             {
               "title": "Design onboarding flow",
@@ -128,7 +140,9 @@ const data: Root1 = {
                   "title": "Welcome page",
                   "isCompleted": false
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             },
             {
               "title": "Add search enpoints",
@@ -143,7 +157,9 @@ const data: Root1 = {
                   "title": "Define search filters",
                   "isCompleted": false
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             },
             {
               "title": "Add authentication endpoints",
@@ -158,7 +174,9 @@ const data: Root1 = {
                   "title": "Add auth endpoints",
                   "isCompleted": false
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             },
             {
               "title": "Research pricing points of various competitors and trial different business models",
@@ -177,7 +195,9 @@ const data: Root1 = {
                   "title": "Talk to potential customers about our proposed solution and ask for fair price expectancy",
                   "isCompleted": false
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             }
           ]
         },
@@ -193,7 +213,9 @@ const data: Root1 = {
                   "title": "Complete 5 wireframe prototype tests",
                   "isCompleted": true
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             },
             {
               "title": "Create wireframe prototype",
@@ -204,7 +226,9 @@ const data: Root1 = {
                   "title": "Create clickable wireframe prototype in Balsamiq",
                   "isCompleted": true
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             },
             {
               "title": "Review results of usability tests and iterate",
@@ -223,7 +247,9 @@ const data: Root1 = {
                   "title": "Conduct 5 usability tests",
                   "isCompleted": true
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             },
             {
               "title": "Create paper prototypes and conduct 10 usability tests with potential customers",
@@ -238,7 +264,9 @@ const data: Root1 = {
                   "title": "Complete 10 usability tests",
                   "isCompleted": true
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             },
             {
               "title": "Market discovery",
@@ -249,7 +277,9 @@ const data: Root1 = {
                   "title": "Interview 10 prospective customers",
                   "isCompleted": true
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             },
             {
               "title": "Competitor analysis",
@@ -264,7 +294,9 @@ const data: Root1 = {
                   "title": "SWOT analysis for each competitor",
                   "isCompleted": true
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             },
             {
               "title": "Research the market",
@@ -279,7 +311,9 @@ const data: Root1 = {
                   "title": "Calculate TAM",
                   "isCompleted": true
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             }
           ]
         }
@@ -320,7 +354,9 @@ const data: Root1 = {
                   "title": "Launch!",
                   "isCompleted": false
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             },
             {
               "title": "Share on Show HN",
@@ -339,7 +375,9 @@ const data: Root1 = {
                   "title": "Publish post",
                   "isCompleted": false
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             },
             {
               "title": "Write launch article to publish on multiple channels",
@@ -362,7 +400,9 @@ const data: Root1 = {
                   "title": "Publish on Medium",
                   "isCompleted": false
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             }
           ]
         },
@@ -395,7 +435,9 @@ const data: Root1 = {
                   "title": "Launch publicly on PH, HN, etc.",
                   "isCompleted": false
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             },
             {
               "title": "Review early feedback and plan next steps for roadmap",
@@ -414,7 +456,9 @@ const data: Root1 = {
                   "title": "Outline next steps for our roadmap",
                   "isCompleted": false
                 }
-              ]
+              ],
+              id: "",
+              boardId: ""
             }
           ]
         },
