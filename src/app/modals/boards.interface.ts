@@ -11,7 +11,7 @@ export interface Board{
 
 export interface Column{
     name: string
-    tasks: Array<Task>
+    tasks: Task[];
 }
 
 export interface Task{

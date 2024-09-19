@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { loadBoardsSuccess, loadBoardsFailure, createBoard, updateBoard, deleteBoard, setCurrentBoard } from './boards.actions';
-import { BoardsState } from '../../modals/boards.interface';  // Corrected import path
+import { BoardsState } from '../../modals/boards.interface';  
 
 const initialState: BoardsState = {
   boards: [],

@@ -1,20 +1,19 @@
-<div *ngIf="(boardsService.getBoards()?.boards?.length || 0) > 0" class="header-right">
-   
-    <button 
-      [disabled]="boardsService.currentBoard?.columns?.length === 0 || !boardsService.currentBoard" 
-      (click)="handleAddNewTask()" 
-      class="btn button-primary-l">
-      + <span>Add New Task</span>
-    </button>
+<div *ngIf="(boardsService.getBoards()?.boards?.length || 0) > 0" class="header-left">
+  <button 
+    [disabled]="!boardsService.currentBoard || boardsService.currentBoard.columns.length === 0"
+    (click)="handleAddNewTask()" 
+    class="btn button-primary-l">
+    + <span>Add New Task</span>
+  </button>
 
-    <button 
-      (click)="modalShowService.onEditDeleteContainerClick()" 
-      class="btn-vertical-dots">
-      <img src="assets/icon-vertical-ellipsis.svg" alt="3 dots">
-    </button>
-    
-    <div *ngIf="modalShowService.showEditDeleteContainer" class="edit-delete-container">
-      <button (click)="openEditBoardModal()" class="edit-board">Edit Board</button>
-      <button (click)="openDeleteBoardModal()" class="delete-board">Delete Board</button>
-    </div>
+  <button 
+    (click)="modalShowService.onEditDeleteContainerClick()" 
+    class="btn-vertical-dots">
+    <img src="assets/icon-vertical-ellipsis.svg" alt="3 dots">
+  </button>
+  
+  <div *ngIf="modalShowService.showEditDeleteContainer" class="edit-delete-container">
+    <button (click)="openEditBoardModal()" class="edit-board">Edit Board</button>
+    <button (click)="openDeleteBoardModal()" class="delete-board">Delete Board</button>
+  </div>
 </div>

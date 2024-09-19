@@ -1,17 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { Subtask, Task } from '../../modals/boards.interface';
 
-export const loadTasks = createAction(
-  '[Tasks] Load Tasks',
-  props<{ boardId: string }>()  
-);
+export const loadTasks = createAction('[Tasks] Load Tasks', props<{ boardId: string }>());
 
-export const loadTasksSuccess = createAction(
-  '[Tasks] Load Tasks Success',
-  props<{ tasks: Task[] }>()
-);
-
-export const loadTasksFailure = createAction('[Tasks] Load Tasks Failure');
+export const loadTasksSuccess = createAction('[Tasks] Load Tasks Success', props<{ tasks: Task[] }>());
+export const loadTasksFailure = createAction('[Tasks] Load Tasks Failure', props<{ error: string }>());
 
 
 export const addTask = createAction(

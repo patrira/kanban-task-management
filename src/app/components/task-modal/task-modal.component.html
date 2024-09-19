@@ -1,7 +1,7 @@
 <div class="modal-head">
-    <!-- Safe access to currentTask properties using ?. -->
+    
     <h4 class="heading-l">{{boardsService.currentTask?.title}}</h4>
-    <button (click)="openEditDeleteContainer()" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
+    <button (click)="openEditDeleteContainer()" class="btn-vertical-dots"><img src="/src/assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
     <div *ngIf="showEditDeleteContainer" class="edit-delete-container">
         <button (click)="modalShowService.openEditTaskModal()" class="edit-task">Edit Task</button>
         <button (click)="openDeleteTaskModal()" class="delete-task">Delete Task</button>
@@ -15,7 +15,7 @@
     <div 
       class="checkbox-container" 
       *ngFor="let subtask of boardsService.currentTask?.subtasks; let i = index"
-      (click)="handleCheckboxClick(subtask, i)">  <!-- Pass both arguments -->
+      (click)="handleCheckboxClick(subtask, i)">  
         <input [checked]="subtask.isCompleted" type="checkbox" aria-label="Subtask completed">
         <span class="checkbox-replace"></span>
         {{subtask.title}}

@@ -6,16 +6,27 @@ import { openModal, closeModal } from '../state/ui/ui.actions';
   providedIn: 'root'
 })
 export class ModalShowService {
-closeEditDeleteContainer() {
-throw new Error('Method not implemented.');
-}
-onEditDeleteContainerClick() {
-throw new Error('Method not implemented.');
-}
   darkBackground = false;
-showEditDeleteContainer: any;
+  showEditDeleteContainer = false;  // Ensure this is defined and works as a boolean flag
+showTaskModal: any;
+showEditTaskModal: any;
+showCreateTaskModal: any;
+showDeleteBoardModal: any;
+showDeleteTaskModal: any;
+showCreatedBoardModal: any;
+showEditBoardModal: any;
 
   constructor(private store: Store) {}
+
+  
+  closeEditDeleteContainer() {
+    this.showEditDeleteContainer = false;
+  }
+
+  
+  onEditDeleteContainerClick() {
+    this.showEditDeleteContainer = !this.showEditDeleteContainer;
+  }
 
   openTaskModal() {
     this.darkBackground = true;

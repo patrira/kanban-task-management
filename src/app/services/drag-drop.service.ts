@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BoardsService } from '../services/broads.service';
+import { BoardsService } from './boards.service';
 import { Task } from '../modals/boards.interface';
 import { Store } from '@ngrx/store';
 import { updateTask } from '../state/tasks/tasks.actions';
@@ -44,6 +44,6 @@ export class DragDropService {
     }
 
     this.dragging = undefined;
-    this.boardsService.setBoards(this.boardsService.boards);  
+    this.boardsService.getBoards();  
   }
 }

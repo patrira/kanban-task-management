@@ -17,6 +17,9 @@ import { BoardModalFrameComponent } from './shared/board-modal-frame/board-modal
 import { TaskModalFrameComponent } from './shared/task-modal-frame/task-modal-frame.component';
 import { ConfirmDeleteBoardComponent } from './components/confirm-delete-board/confirm-delete-board.component';
 import { ConfirmDeleteTaskComponent } from './components/confirm-delete-task/confirm-delete-task.component';
+import { boardsReducer } from './state/boards/boards.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { TasksEffects } from './state/tasks/tasks.effects';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { ConfirmDeleteTaskComponent } from './components/confirm-delete-task/con
   FormsModule,
   ReactiveFormsModule,
     AppRoutingModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot(),
+    StoreModule.forFeature('boards', boardsReducer),
+    EffectsModule.forRoot([TasksEffects]),
+    EffectsModule.forFeature()
   ],
   providers: [],
   bootstrap: [AppComponent]

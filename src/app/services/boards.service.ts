@@ -5,35 +5,33 @@ import { Boards, Board, Task } from '../modals/boards.interface';
   providedIn: 'root'
 })
 export class BoardsService {
-[x: string]: any;
-  setCurrentBoard(arg0: Board) {
-    throw new Error('Method not implemented.');
-  }
-  setBoards(boards: any) {
-    throw new Error('Method not implemented.');
-  }
-  boards(boards: any) {
-    throw new Error('Method not implemented.');
-  }
-  currentBoard: Board | null = null;  
-  currentTask: Task | null = null; 
-  boardsData: Boards | null = null;  // Holds the boards data
-     
+  currentBoard: Board | undefined;
+  currentTask: Task | null = null;
+  boardsData: Boards | null = null;  
+  indexes = { taskIndex: 0, columnIndex: 0, dropColumnIndex: 0, dropTaskIndex: 0 };
 
-  indexes!: { taskIndex: number; columnIndex: number; dropColumnIndex: number; dropTaskIndex: number };
-
-  
   getBoardsFromStorage(): Boards | null {
     const boards = localStorage.getItem('boards');
     return boards ? JSON.parse(boards) : null;
   }
 
-  
   setBoardsInStorage(boards: Boards) {
     localStorage.setItem('boards', JSON.stringify(boards));
   }
 
-  
+  initializeBoards() {
+    const boards = this.getBoardsFromStorage();
+    if (boards && boards.boards.length > 0) {
+      this.currentBoard = boards.boards[0]; // Set currentBoard to a valid board
+    } else {
+      const defaultBoards: Boards = {
+        boards: [] 
+      };
+      this.setBoardsInStorage(defaultBoards);
+      this.currentBoard = undefined; // Ensure it's set to undefined if no boards exist
+    }
+  }
+
   getTasks(boardId: string): Task[] | undefined {
     const boards = this.getBoardsFromStorage();
     if (boards) {
@@ -43,7 +41,6 @@ export class BoardsService {
     return undefined;
   }
 
-  
   addTask(boardId: string, task: Task) {
     const boards = this.getBoardsFromStorage();
     if (boards) {
@@ -55,7 +52,6 @@ export class BoardsService {
     }
   }
 
- 
   updateTask(boardId: string, updatedTask: Task) {
     const boards = this.getBoardsFromStorage();
     if (boards) {
@@ -69,7 +65,6 @@ export class BoardsService {
     }
   }
 
-  
   deleteTask(boardId: string, taskId: string) {
     const boards = this.getBoardsFromStorage();
     if (boards) {
@@ -82,10 +77,16 @@ export class BoardsService {
       }
     }
   }
+
+  setCurrentBoard(board: Board) {
+    this.currentBoard = board;
+  }
+
   setCurrentTask(task: Task) {
     this.currentTask = task;
   }
-  getBoards() {
+
+  getBoards(): Boards | null {
     if (!this.boardsData) {
       this.boardsData = this.getBoardsFromStorage();
     }

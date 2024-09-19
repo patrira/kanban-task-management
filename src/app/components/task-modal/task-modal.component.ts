@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Subtask, Task } from '../../modals/boards.interface';
-import { BoardsService } from '../../services/broads.service';
+import { BoardsService } from '../../services/boards.service';
 import { ModalShowService } from '../../services/modal-show.service';
 import { updateTask, updateSubtaskStatus } from '../../state/tasks/tasks.actions';
 import { selectCurrentTask } from '../../state/tasks/tasks.selectors';

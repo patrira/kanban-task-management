@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Task, Subtask } from '../../modals/boards.interface';
 import { ModalShowService } from '../../services/modal-show.service';
-import { BoardsService } from '../../services/broads.service';
+import { BoardsService } from '../../services/boards.service';
 import { DragDropService } from '../../services/drag-drop.service';
 import { updateTask } from '../../state/tasks/tasks.actions';
 
@@ -58,7 +58,7 @@ export class ColumnComponent {
     const updatedTask = this.boardsService.currentTask!;
     this.store.dispatch(updateTask({
       task: updatedTask,
-      boardId: ''
+      boardId: '' // Set this appropriately based on your logic
     }));
   }
 

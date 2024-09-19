@@ -5,9 +5,9 @@ import { SidebarToggleService } from '../../services/sidebar-toggle.service';
 import { ModalShowService } from '../../services/modal-show.service';
 import { selectAllBoards } from '../../state/boards/boards.selectors';
 import { toggleSidebar } from '../../state/ui/ui.actions';
-import { BoardsService } from '../../services/broads.service';  
+import { BoardsService } from '../../services/boards.service';  // Corrected typo from 'broads.service'
 import { Observable } from 'rxjs';
-import { Board } from '../../modals/boards.interface';  
+import { Board } from '../../modals/boards.interface';
 
 @Component({
   selector: 'app-side-bar',
@@ -15,7 +15,7 @@ import { Board } from '../../modals/boards.interface';
   styleUrls: ['./side-bar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  boards$!: Observable<Board[]>;  
+  boards$!: Observable<Board[]>; 
 
   constructor(
     public colorTheme: ColorThemeService,
@@ -26,26 +26,17 @@ export class SidebarComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    
     this.boards$ = this.store.select(selectAllBoards);
   }
 
-  
-  handleOnBoardClick(index: number) {
+  handleOnBoardClick(index: number, board: Board) {
     if (window.innerWidth <= 575) {
       this.toggleSidebar();  
     }
 
-    
-    const boardsData = this.boardsService.getBoardsFromStorage();
-    
-    
-    if (boardsData && boardsData.boards) {
-      this.boardsService.setCurrentBoard(boardsData.boards[index]);
-    }
+    this.boardsService.setCurrentBoard(board);
   }
 
-  
   onCreateBoardClick() {
     if (window.innerWidth <= 575) {
       this.toggleSidebar();  
@@ -53,7 +44,6 @@ export class SidebarComponent implements OnInit {
     this.modalShowService.openCreateBoardModal();  
   }
 
-  
   toggleSidebar() {
     this.store.dispatch(toggleSidebar());
   }

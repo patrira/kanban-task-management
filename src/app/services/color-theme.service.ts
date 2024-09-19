@@ -6,7 +6,7 @@ import { toggleTheme } from '../state/ui/ui.actions';
   providedIn: 'root'
 })
 export class ColorThemeService {
-  lightMode = false;
+  lightMode: boolean = true;
 
   constructor(private store: Store) {}
 

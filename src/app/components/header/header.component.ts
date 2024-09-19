@@ -4,7 +4,7 @@ import { ModalShowService } from '../../services/modal-show.service';
 import { toggleTheme } from '../../state/ui/ui.actions';
 import { ColorThemeService } from '../../services/color-theme.service';
 import { SidebarToggleService } from '../../services/sidebar-toggle.service';
-import { BoardsService } from '../../services/broads.service';  
+import { BoardsService } from '../../services/boards.service';  
 
 @Component({
   selector: 'app-header',
@@ -15,7 +15,7 @@ export class HeaderComponent {
   constructor(
     public colorTheme: ColorThemeService,
     public sidebarService: SidebarToggleService,
-    public boardsService: BoardsService,
+    public boardsService: BoardsService,  
     public modalShowService: ModalShowService,
     private store: Store
   ) {}
@@ -38,6 +38,6 @@ export class HeaderComponent {
   }
 
   toggleTheme() {
-    this.store.dispatch(toggleTheme());
+    this.store.dispatch(toggleTheme()); 
   }
 }
