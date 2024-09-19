@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Boards, Board, Task } from '../modals/boards.interface';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,12 @@ export class BoardsService {
   currentTask: Task | null = null;
   boardsData: Boards | null = null;  
   indexes = { taskIndex: 0, columnIndex: 0, dropColumnIndex: 0, dropTaskIndex: 0 };
+  
+  
+  // getBoards(): Observable<Boards[]> {
+  //   console.log("Data", data)
+  //   return of(data);
+  // }
 
   getBoardsFromStorage(): Boards | null {
     const boards = localStorage.getItem('boards');

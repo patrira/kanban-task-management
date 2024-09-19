@@ -22,7 +22,7 @@ export class ColorThemeService {
   }
 
   getTheme() {
-    this.lightMode = JSON.parse(localStorage.getItem('lightMode') || 'false');
+    this.lightMode = JSON.parse(localStorage.getItem('lightMode') || 'true');
     document.documentElement.setAttribute('data-theme', this.lightMode ? 'light' : 'dark');
   }
 }

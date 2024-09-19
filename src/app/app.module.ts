@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { isDevMode, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,10 @@ import { ConfirmDeleteTaskComponent } from './components/confirm-delete-task/con
 import { boardsReducer } from './state/boards/boards.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { TasksEffects } from './state/tasks/tasks.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { boardReducer } from './state/board/board.reducer';
+import { BoardEffects } from './state/board/board.effect';
+
 
 @NgModule({
   declarations: [
@@ -44,8 +48,14 @@ import { TasksEffects } from './state/tasks/tasks.effects';
     AppRoutingModule,
     StoreModule.forRoot(),
     StoreModule.forFeature('boards', boardsReducer),
-    EffectsModule.forRoot([TasksEffects]),
-    EffectsModule.forFeature()
+    StoreModule.forFeature('board', boardReducer),
+    EffectsModule.forRoot([TasksEffects, BoardEffects]),
+    EffectsModule.forFeature(),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, 
+      logOnly: !isDevMode(), 
+      
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

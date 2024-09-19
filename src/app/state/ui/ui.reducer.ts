@@ -20,7 +20,7 @@ export const uiReducer = createReducer(
   
   on(toggleTheme, state => ({
     ...state,
-    theme: state.theme === 'light' ? 'dark' : 'light' as 'light' | 'dark'  
+    theme: state.theme === 'light' ? 'light' : 'dark' as 'light' | 'dark'  
   })),
   
   on(openModal, (state, { modalType }) => ({ ...state, activeModal: modalType })),

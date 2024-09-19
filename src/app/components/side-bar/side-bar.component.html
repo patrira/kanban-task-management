@@ -1,6 +1,6 @@
 <div class="logo-container">
-  <img *ngIf="!colorTheme.lightMode" src="/src/assets/logo-light.svg" alt="logo">
-  <img *ngIf="colorTheme.lightMode" src="/src/assets/logo-dark.svg" alt="logo">
+  <img *ngIf="!colorTheme.lightMode" src="assets/logo-light.svg" alt="logo">
+  <img *ngIf="colorTheme.lightMode" src="assets/logo-dark.svg" alt="logo">
 </div>
 <div class="sidebar-top">
     <div class="boards">
@@ -8,7 +8,7 @@
       <ul>
         <li *ngFor="let board of (boards$ | async); let i = index">
           <button 
-            (click)="handleOnBoardClick(i, board)" > 
+            (click)="handleOnBoardClick(i, board)"
             class="btn btn-list"
             [class.active]="sidebarService.selectedIndex === i">
             <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">

@@ -1,4 +1,6 @@
-{
+import {Root1 } from "../app/modals/boards.interface"
+
+const data: Root1 = {
   "boards": [
     {
       "name": "Platform Launch",
@@ -428,3 +430,5 @@
     }
   ]
 }
+
+export default data

@@ -4,14 +4,14 @@ export interface Boards{
 }
 
 export interface Board{
-    id: any
+    id?: any
     columns: Array<Column>
     name: string
 }
 
 export interface Column{
     name: string
-    tasks: Task[];
+    tasks: Array<Task>
 }
 
 export interface Task{
@@ -34,4 +34,39 @@ export interface BoardsState {
   }
   export interface TasksState {
     tasks: Task[];
+  }
+
+
+
+
+
+
+
+
+
+
+  export interface Subtask1 {
+    title: string;
+    isCompleted: boolean;
+  }
+  
+  export interface Task1 {
+    title: string;
+    description: string;
+    status: string;
+    subtasks: Subtask1[];
+  }
+  
+  export interface Column1 {
+    name: string;
+    tasks: Task1[];
+  }
+  
+  export interface Board1 {
+    name: string;
+    columns: Column1[];
+  }
+  
+  export interface Root1 {
+    boards: Board1[];
   }

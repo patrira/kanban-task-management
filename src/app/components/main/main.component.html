@@ -7,8 +7,8 @@
 <app-column
   *ngFor="let column of columns; let i = index"
   [columnName]="column.name"
-  [taskNumber]="column.tasks.length ?? 0" 
-  [tasks]="column.tasks ?? []"  
+  [taskNumber]="column.tasks.length " 
+  [tasks]="column.tasks "  
   [color]="colors[i]"
   [columnIndex]="i">
 </app-column>
