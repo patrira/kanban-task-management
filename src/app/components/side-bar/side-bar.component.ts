@@ -5,7 +5,7 @@ import { SidebarToggleService } from '../../services/sidebar-toggle.service';
 import { ModalShowService } from '../../services/modal-show.service';
 import { toggleSidebar } from '../../state/ui/ui.actions';
 import { Observable } from 'rxjs';
-import { Board } from '../../modals/boards.interface';
+import { Board, Board1 } from '../../modals/boards.interface';
 import { loadBoards } from '../../state/board/board.actions';
 import { BoardState } from '../../state/board/board.state';
 
@@ -15,7 +15,7 @@ import { BoardState } from '../../state/board/board.state';
   styleUrls: ['./side-bar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  boards$!: Observable<Board[]>; 
+  boards$!: Observable<Board1[]>; 
   totalBoards: number = 0;
 
   constructor(
