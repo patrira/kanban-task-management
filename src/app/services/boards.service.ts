@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'; 
 import { Boards, Board, Task } from '../modals/boards.interface';
-import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +7,8 @@ import { Observable, of } from 'rxjs';
 export class BoardsService {
   currentBoard: Board | undefined;
   currentTask: Task | null = null;
-  boardsData: Boards | null = null;  
+  boardsData: Boards | null = null;
   indexes = { taskIndex: 0, columnIndex: 0, dropColumnIndex: 0, dropTaskIndex: 0 };
-  
-  
-  
 
   getBoardsFromStorage(): Boards | null {
     const boards = localStorage.getItem('boards');
@@ -26,13 +22,13 @@ export class BoardsService {
   initializeBoards() {
     const boards = this.getBoardsFromStorage();
     if (boards && boards.boards.length > 0) {
-      this.currentBoard = boards.boards[0]; // Set currentBoard to a valid board
+      this.currentBoard = boards.boards[0]; // Set currentBoard to the first board by default
     } else {
       const defaultBoards: Boards = {
         boards: [] 
       };
       this.setBoardsInStorage(defaultBoards);
-      this.currentBoard = undefined; // Ensure it's set to undefined if no boards exist
+      this.currentBoard = undefined; 
     }
   }
 

@@ -8,7 +8,9 @@ import { toggleTheme } from '../state/ui/ui.actions';
 export class ColorThemeService {
   lightMode: boolean = true;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    this.getTheme(); 
+  }
 
   switchTheme() {
     this.lightMode = !this.lightMode;
@@ -22,7 +24,12 @@ export class ColorThemeService {
   }
 
   getTheme() {
-    this.lightMode = JSON.parse(localStorage.getItem('lightMode') || 'true');
+    this.lightMode = JSON.parse(localStorage.getItem('lightMode') || 'true'); // Default is light
     document.documentElement.setAttribute('data-theme', this.lightMode ? 'light' : 'dark');
+  }
+
+  
+  getCurrentTheme() {
+    return { lightMode: this.lightMode }; 
   }
 }
