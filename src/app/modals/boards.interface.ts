@@ -3,7 +3,7 @@ export interface Boards {
 }
 
 export interface Board {
-  id?: string; // or number, depending on your ID type
+  id?: string; 
   columns: Array<Column>;
   name: string;
 }
@@ -58,6 +58,7 @@ export interface Column1 {
 export interface Board1 {
   name: string;
   columns: Column1[];
+  id: string
 }
 
 export interface Root1 {

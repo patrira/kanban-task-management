@@ -2,13 +2,13 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { BoardsService } from '../../services/boards.service';  
+import { BoardService } from '../../services/board/board.service';  
 import { loadTasks, addTask, updateTask, deleteTask, loadTasksSuccess, loadTasksFailure } from './tasks.actions';
 import { Action } from 'rxjs/internal/scheduler/Action';
 
 @Injectable()
 export class TasksEffects {
-  constructor( private boardsService: BoardsService) {}
+  constructor( private boardService: BoardService) {}
 
   private actions$ = inject(Actions)
   
@@ -16,7 +16,7 @@ export class TasksEffects {
     this.actions$.pipe(
       ofType(loadTasks),
       switchMap(({ boardId }) => {
-        const tasks = this.boardsService.getTasks(boardId);
+        const tasks = this.boardService.getTasks(boardId);
 
       
         if (tasks) {
@@ -38,7 +38,7 @@ export class TasksEffects {
       ofType(addTask),
       switchMap(({ boardId, task }) => {
         try {
-          this.boardsService.addTask(boardId, task);
+          this.boardService.addTask(boardId, task);
           return of({ type: '[Tasks] Add Task Success' });
         } catch (err) {
           return of(loadTasksFailure({ error: (err as Error).message }));
@@ -53,7 +53,7 @@ export class TasksEffects {
       ofType(updateTask),
       switchMap(({ boardId, task }) => {
         try {
-          this.boardsService.updateTask(boardId, task);
+          this.boardService.updateTask(boardId, task);
           return of({ type: '[Tasks] Update Task Success' });
         } catch (err) {
           return of(loadTasksFailure({ error: (err as Error).message }));
@@ -68,7 +68,7 @@ export class TasksEffects {
       ofType(deleteTask),
       switchMap(({ boardId, taskId }) => {
         try {
-          this.boardsService.deleteTask(boardId, taskId);
+          this.boardService.deleteTask(boardId, taskId);
           return of({ type: '[Tasks] Delete Task Success' });
         } catch (err) {
           return of(loadTasksFailure({ error: (err as Error).message }));

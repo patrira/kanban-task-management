@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BoardsService } from './boards.service';
+import { BoardService } from './board/board.service';
 import { Task } from '../modals/boards.interface';
 import { Store } from '@ngrx/store';
 import { updateTask } from '../state/tasks/tasks.actions';
@@ -10,7 +10,7 @@ import { updateTask } from '../state/tasks/tasks.actions';
 export class DragDropService {
   public dragging: Task | undefined;
 
-  constructor(public boardsService: BoardsService, private store: Store) {}
+  constructor(public boardService: BoardService, private store: Store) {}
 
   dragStart(e: DragEvent, item: Task) {
     this.dragging = item;
@@ -28,15 +28,15 @@ export class DragDropService {
 
   drop(e: DragEvent) {
     e.preventDefault();
-    const { taskIndex, columnIndex, dropColumnIndex, dropTaskIndex } = this.boardsService.indexes;
+    const { taskIndex, columnIndex, dropColumnIndex, dropTaskIndex } = this.boardService.indexes;
 
     
-    this.boardsService.currentBoard!.columns[columnIndex].tasks.splice(taskIndex, 1);
+    this.boardService.currentBoard!.columns[columnIndex].tasks.splice(taskIndex, 1);
 
     if (this.dragging) {
-      this.dragging.status = this.boardsService.currentBoard!.columns[dropColumnIndex].name;
+      this.dragging.status = this.boardService.currentBoard!.columns[dropColumnIndex].name;
       
-      this.boardsService.currentBoard!.columns[dropColumnIndex].tasks.splice(dropTaskIndex, 0, this.dragging);
+      this.boardService.currentBoard!.columns[dropColumnIndex].tasks.splice(dropTaskIndex, 0, this.dragging);
       this.store.dispatch(updateTask({
         task: this.dragging,
         boardId: ''
@@ -44,6 +44,6 @@ export class DragDropService {
     }
 
     this.dragging = undefined;
-    this.boardsService.getBoards();  
+    this.boardService.getBoards();  
   }
 }

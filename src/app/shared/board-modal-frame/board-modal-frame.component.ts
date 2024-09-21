@@ -1,11 +1,11 @@
 import { Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Column, Board } from '../../modals/boards.interface';
+import { Column, Board1 } from '../../modals/boards.interface';  // Ensure this is your Board1 interface
 import { ModalShowService } from '../../services/modal-show.service';
 import { SidebarToggleService } from '../../services/sidebar-toggle.service';
-import { createBoard, updateBoard } from '../../state/boards/boards.actions';
-import { selectCurrentBoard } from '../../state/boards/boards.selectors';
+import { createBoard, updateBoard } from '../../state/board/board.reducer';
+import { selectCurrentBoard } from '../../state/board/board.selectors';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -26,19 +26,19 @@ export class BoardModalFrameComponent implements OnInit {
   @Input() buttonName: string = '';
 
   @ViewChildren('templateColumn') columnChildren!: QueryList<ElementRef<HTMLInputElement>>;
-  
+
   name = new FormControl('', [Validators.required, Validators.maxLength(21)]);
   columnsCopy!: Array<Column>;
   columnPlaceholders = ['e.g Todo', 'e.g Doing', 'e.g Done'];
 
-  currentBoard$: Observable<Board | null>;  // Changed to Observable<Board | null>
+  currentBoard$: Observable<Board1 | null>;
 
   constructor(
     private store: Store,
     public modalShowService: ModalShowService,
     public sidebarService: SidebarToggleService
   ) {
-    this.currentBoard$ = this.store.select(selectCurrentBoard); 
+    this.currentBoard$ = this.store.select(selectCurrentBoard);
   }
 
   ngOnInit() {
@@ -59,7 +59,7 @@ export class BoardModalFrameComponent implements OnInit {
   saveBoard(event: Event) {
     event.preventDefault();
     const columnArray = this.columnChildren.toArray();
-    
+
     if (this.name.status === 'INVALID') {
       this.name.markAsDirty();
       return;
@@ -72,13 +72,14 @@ export class BoardModalFrameComponent implements OnInit {
           return column;
         }).filter(column => !!column.name);
 
-        const updatedBoard = {
+        const updatedBoard: Board1 = {
           ...currentBoard,
           name: this.name.value || currentBoard.name,
-          columns: updatedColumns
+          columns: updatedColumns,
+          id: currentBoard.id // Ensure you retain the existing ID
         };
 
-        this.store.dispatch(updateBoard({ board: updatedBoard }));  // Dispatch action to update board
+        this.store.dispatch(updateBoard({ board: updatedBoard }));
         this.modalShowService.closeModal();
       }
     });
@@ -93,16 +94,21 @@ export class BoardModalFrameComponent implements OnInit {
       return;
     }
 
-    const newBoard: Board = {
+    const newBoard: Board1 = {
       name: this.name.value || '',
       columns: columnArray.map((col) => ({
         name: col.nativeElement.value,
         tasks: []
       })).filter(column => !!column.name),
-      id: undefined
+      id: this.generateBoardId() 
     };
 
-    this.store.dispatch(createBoard({ board: newBoard }));  
+    this.store.dispatch(createBoard({ board: newBoard }));
     this.modalShowService.closeModal();
+  }
+
+  private generateBoardId(): string {
+    
+    return Math.random().toString(36).substr(2, 9); 
   }
 }

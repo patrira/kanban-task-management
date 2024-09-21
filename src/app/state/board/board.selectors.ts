@@ -1,17 +1,17 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { BoardsState } from './boards.reducer';
+import { BoardState } from './board.reducer';
 
 // Select the 'boards' feature state
-export const selectBoardsState = createFeatureSelector<BoardsState>('boards');
+export const selectBoardsState = createFeatureSelector<BoardState>('boards');
 
 // Selector to get all boards
 export const selectAllBoards = createSelector(
   selectBoardsState,
-  (state: BoardsState) => state.boards
+  (state: BoardState) => state.boards
 );
 
-// Selector to get the current board
+
 export const selectCurrentBoard = createSelector(
   selectBoardsState,
-  (state: BoardsState) => state.currentBoard
+  (state: BoardState) => state.currentBoard
 );

@@ -4,7 +4,7 @@ import { ModalShowService } from '../../services/modal-show.service';
 import { toggleTheme } from '../../state/ui/ui.actions';
 import { ColorThemeService } from '../../services/color-theme.service';
 import { SidebarToggleService } from '../../services/sidebar-toggle.service';
-import { BoardsService } from '../../services/boards.service';
+import { BoardService } from '../../services/board/board.service';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +16,7 @@ export class HeaderComponent {
   constructor(
     public colorTheme: ColorThemeService,
     public sidebarService: SidebarToggleService,
-    public boardsService: BoardsService,
+    public boardService: BoardService,
     public modalShowService: ModalShowService,
     private store: Store
   ) {
@@ -29,8 +29,8 @@ export class HeaderComponent {
   }
 
   handleAddNewTask() {
-    if (this.boardsService.currentTask) {
-      this.boardsService.currentTask.status = '';  
+    if (this.boardService.currentTask) {
+      this.boardService.currentTask.status = '';  
     }
     this.modalShowService.openCreateTaskModal();
   }

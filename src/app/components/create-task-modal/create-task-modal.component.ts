@@ -19,7 +19,7 @@ export class CreateTaskModalComponent {
   };
   
   
-boardsService: any;
+boardService: any;
 
   constructor(private store: Store) {}
 

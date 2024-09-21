@@ -7,7 +7,7 @@
 
   <!-- Board name and toggle button -->
   <button (click)="sidebarService.toggleSidebar()" [ngSwitch]="sidebarService.sidebarOpened">
-    <h1 *ngIf="boardsService.currentBoard" class="heading-xl">{{ boardsService.currentBoard.name }}</h1>
+    <h1 *ngIf="boardService.currentBoard" class="heading-xl">{{ boardService.currentBoard.name }}</h1>
     <img *ngSwitchCase="false" src="assets/icon-chevron-down.svg" alt="extend menu">
     <img *ngSwitchCase="true" src="assets/icon-chevron-up.svg" alt="collapse menu">
   </button>

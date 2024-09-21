@@ -317,7 +317,8 @@ const data: Root1 = {
             }
           ]
         }
-      ]
+      ],
+      id: ""
     },
     {
       "name": "Marketing Plan",
@@ -414,7 +415,8 @@ const data: Root1 = {
           "name": "Done",
           "tasks": []
         }
-      ]
+      ],
+      id: ""
     },
     {
       "name": "Roadmap",
@@ -470,7 +472,8 @@ const data: Root1 = {
           "name": "Later",
           "tasks": []
         }
-      ]
+      ],
+      id: ""
     }
   ]
 }

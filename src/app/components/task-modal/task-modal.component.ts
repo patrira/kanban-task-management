@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Subtask, Task } from '../../modals/boards.interface';
-import { BoardsService } from '../../services/boards.service';
+import { BoardService } from '../../services/board/board.service';
 import { ModalShowService } from '../../services/modal-show.service';
 import { updateTask, updateSubtaskStatus } from '../../state/tasks/tasks.actions';
 import { selectCurrentTask } from '../../state/tasks/tasks.selectors';
@@ -19,8 +19,8 @@ export class TaskModalComponent {
 
   constructor(
     private store: Store,
-    public modalShowService: ModalShowService,
-    public boardsService: BoardsService
+  public modalShowService: ModalShowService,
+  public boardService: BoardService
   ) {
     this.currentTask$ = this.store.select(selectCurrentTask, { taskId: this.taskId });
   }

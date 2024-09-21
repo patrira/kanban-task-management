@@ -70,6 +70,7 @@ export class ModalShowService {
 
   closeModal() {
     this.darkBackground = false;
+    this.showEditDeleteContainer = false;
     this.store.dispatch(closeModal());
   }
 }

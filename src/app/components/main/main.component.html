@@ -1,4 +1,4 @@
-<div *ngIf="(boardsService.currentBoard?.columns?.length ?? 0) === 0" class="empty-board">
+<div *ngIf="(boardService.currentBoard?.columns?.length ?? 0) === 0" class="empty-board">
   <h1 class="heading-l">This board is empty. Create a new column to get started.</h1>
   <button (click)="onNewColumnClick()" class="btn button-primary-l">+ Add New Column</button>
 </div>

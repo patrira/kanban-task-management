@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loadBoards } from './state/boards/boards.actions';
+import { loadBoards } from './state/board/board.actions';
 import { SidebarToggleService } from './services/sidebar-toggle.service';
 import { ModalShowService } from './services/modal-show.service';
-import { BoardsService } from './services/boards.service';  // Ensure correct import
+import { BoardService } from './services/board/board.service';  // Ensure correct import
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     private store: Store, 
     public sidebarService: SidebarToggleService,
     public modalShowService: ModalShowService,
-    public boardsService: BoardsService  
+    public boardsService: BoardService  
   ) {}
 
   ngOnInit() {

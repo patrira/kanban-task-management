@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Task, Subtask } from '../../modals/boards.interface';
 import { ModalShowService } from '../../services/modal-show.service';
-import { BoardsService } from '../../services/boards.service';
+import { BoardService } from '../../services/board/board.service';
 import { DragDropService } from '../../services/drag-drop.service';
 import { updateTask } from '../../state/tasks/tasks.actions';
 
@@ -12,7 +12,6 @@ import { updateTask } from '../../state/tasks/tasks.actions';
   styleUrls: ['./column.component.scss']
 })
 export class ColumnComponent {
-
   @Input() color: string = "#49C4E5";
   @Input() columnName: string = "TODO";
   @Input() taskNumber: number = 0;
@@ -21,16 +20,16 @@ export class ColumnComponent {
 
   constructor(
     public modalShowService: ModalShowService,
-    public boardsService: BoardsService,
+    public boardService: BoardService,
     public dragDropService: DragDropService,
     private store: Store
   ) {}
 
   onTaskClick(i: number) {
-    this.boardsService.currentTask = this.tasks[i];  
+    this.boardService.currentTask = this.tasks[i];  
     this.modalShowService.openTaskModal();
-    this.boardsService.indexes.columnIndex = this.columnIndex;
-    this.boardsService.indexes.taskIndex = i;
+    this.boardService.indexes.columnIndex = this.columnIndex;
+    this.boardService.indexes.taskIndex = i;
   }
 
   filterCompletedTasks(subtasks: Array<Subtask>): number {
@@ -39,26 +38,26 @@ export class ColumnComponent {
 
   // Drag-and-drop
   onDragStart(e: DragEvent, item: Task, i: number) {
-    this.boardsService.indexes.columnIndex = this.columnIndex;
-    this.boardsService.indexes.taskIndex = i;
+    this.boardService.indexes.columnIndex = this.columnIndex;
+    this.boardService.indexes.taskIndex = i;
     this.dragDropService.dragStart(e, item);
   }
 
   getDragOverTaskIndex(index: number) {
-    this.boardsService.indexes.dropTaskIndex = index;
+    this.boardService.indexes.dropTaskIndex = index;
   }
 
   onParentDragOver(e: DragEvent) {
-    this.boardsService.indexes.dropColumnIndex = this.columnIndex;
+    this.boardService.indexes.dropColumnIndex = this.columnIndex;
     this.dragDropService.dragOver(e);
   }
 
   onDrop(e: DragEvent) {
     this.dragDropService.drop(e);
-    const updatedTask = this.boardsService.currentTask!;
+    const updatedTask = this.boardService.currentTask!;
     this.store.dispatch(updateTask({
       task: updatedTask,
-      boardId: '' // Set this appropriately based on your logic
+      boardId: '' 
     }));
   }
 

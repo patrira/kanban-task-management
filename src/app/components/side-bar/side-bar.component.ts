@@ -7,8 +7,9 @@ import { ModalShowService } from '../../services/modal-show.service';
 import { SelectedBoardService } from '../../services/selected-board-service.service';
 import { Observable } from 'rxjs';
 import { Board1 } from '../../modals/boards.interface';
-import { loadBoards } from '../../state/board/board.actions'; 
-import { ColorThemeService } from '../../services/color-theme.service'; 
+import { loadBoards } from '../../state/board/board.actions';
+import { ColorThemeService } from '../../services/color-theme.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-side-bar',
@@ -18,27 +19,31 @@ import { ColorThemeService } from '../../services/color-theme.service';
 export class SidebarComponent implements OnInit {
   boards$!: Observable<Board1[]>; 
   totalBoards: number = 0;
-  public colorThemeService: ColorThemeService; // Make this public
+  colorThemeService: ColorThemeService;
 
   constructor(
     private store: Store<{ board: BoardState }>,
     public sidebarService: SidebarToggleService,
     public modalShowService: ModalShowService,
     private selectedBoardService: SelectedBoardService,
-    private colorTheme: ColorThemeService // Inject the service directly
+    private colorTheme: ColorThemeService
   ) {
-    this.colorThemeService = colorTheme; // Assign it to the property
+    this.colorThemeService = colorTheme;
   }
 
   ngOnInit() {
     this.boards$ = this.store.select((state) => state.board.boards);
-    this.boards$.subscribe((boards) => {
+    this.boards$.pipe(take(1)).subscribe((boards) => {
+      this.totalBoards = boards.length;
+      // Automatically select the first board if it exists
       if (boards.length > 0) {
-        this.totalBoards = boards.length;
       }
+      console.log("board initiated")
+      this.selectedBoardService.setSelectedBoard(boards[0]);
+    
     });
 
-    this.colorThemeService.getTheme(); // Initialize theme
+    this.colorThemeService.getTheme();
     this.store.dispatch(loadBoards());
   }
 

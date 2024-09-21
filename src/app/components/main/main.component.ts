@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BoardsService } from '../../services/boards.service';
+import { BoardService } from '../../services/board/board.service';
 import { ModalShowService } from '../../services/modal-show.service';
 import { SelectedBoardService } from '../../services/selected-board-service.service'; 
-import { Board, Column, Task } from '../../modals/boards.interface';
+import { Board, Column } from '../../modals/boards.interface';
 
 @Component({
   selector: 'app-main',
@@ -14,41 +14,30 @@ export class MainComponent implements OnInit {
   selectedBoard: Board | null = null;
 
   constructor(
-    public boardsService: BoardsService,
+    public boardService: BoardService,
     public modalShowService: ModalShowService,
-    private selectedBoardService: SelectedBoardService
+    private selectedBoardService: SelectedBoardService 
   ) {}
 
   ngOnInit() {
-    this.boardsService.initializeBoards();
+    // Initialize currentBoard if needed
+    this.boardService.initializeBoards();
+
+    // Subscribe to the selected board observable
     this.selectedBoardService.selectedBoard$.subscribe(board => {
       this.selectedBoard = board;
     });
-  }
-
-  openAddTaskModal() {
-    this.modalShowService.openCreateTaskModal();
-  }
-
-  openAddBoardModal() {
-    this.modalShowService.openCreateBoardModal();
   }
 
   onNewColumnClick() {
     this.modalShowService.openEditBoardModal();
   }
 
-  addTask(task: Task) {
-    const boardId = this.boardsService.currentBoard?.id;
-    if (boardId) {
-      this.boardsService.addTask(boardId, task);
-    } else {
-      console.error("Board ID is undefined. Cannot add a task.");
-    }
+  onNewBoardClick() {
+    this.modalShowService.openCreateBoardModal();
   }
-  
 
   get columns(): Column[] {
-    return this.selectedBoard?.columns ?? [];
+    return this.selectedBoard?.columns ?? []; // Use the selected board
   }
 }
