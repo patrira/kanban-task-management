@@ -1,18 +1,18 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { BoardsState, boardsReducer } from '../state/boards/boards.reducer';
+import { BoardState, boardReducer } from '../state/board/board.reducer';
 import { TasksState, tasksReducer } from '../state/tasks/tasks.reducer';
 import { UIState, uiReducer } from '../state/ui/ui.reducer';
 
 
 export interface AppState {
-  boards: BoardsState;
+  boards: BoardState;
   tasks: TasksState;
   ui: UIState;
 }
 
 
 export const appReducers: ActionReducerMap<AppState> = {
-  boards: boardsReducer,
+  boards: boardReducer,
   tasks: tasksReducer,
   ui: uiReducer
 };

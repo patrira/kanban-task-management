@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Column, Board1 } from '../../modals/boards.interface';  // Ensure this is your Board1 interface
+import { Column, Board1 } from '../../modals/boards.interface';  
 import { ModalShowService } from '../../services/modal-show.service';
 import { SidebarToggleService } from '../../services/sidebar-toggle.service';
 import { createBoard, updateBoard } from '../../state/board/board.reducer';
@@ -36,7 +36,8 @@ export class BoardModalFrameComponent implements OnInit {
   constructor(
     private store: Store,
     public modalShowService: ModalShowService,
-    public sidebarService: SidebarToggleService
+    public sidebarService: SidebarToggleService,
+    private elementRef: ElementRef // Inject ElementRef for outside click detection
   ) {
     this.currentBoard$ = this.store.select(selectCurrentBoard);
   }
@@ -44,6 +45,22 @@ export class BoardModalFrameComponent implements OnInit {
   ngOnInit() {
     this.name.setValue(this.titleValue);
     this.columnsCopy = [...this.columns];
+    document.addEventListener('click', this.handleOutsideClick.bind(this)); // Add listener for outside clicks
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('click', this.handleOutsideClick.bind(this)); // Remove listener when component is destroyed
+  }
+
+  handleOutsideClick(event: MouseEvent) {
+    const modalContent = this.elementRef.nativeElement.querySelector('.modal-content');
+    if (!modalContent.contains(event.target)) {
+      this.modalShowService.closeModal();  // Close modal if clicked outside
+    }
+  }
+
+  closeModal() {
+    this.modalShowService.closeModal();
   }
 
   removeColumn(columnIndex: number, event: Event) {
@@ -76,7 +93,7 @@ export class BoardModalFrameComponent implements OnInit {
           ...currentBoard,
           name: this.name.value || currentBoard.name,
           columns: updatedColumns,
-          id: currentBoard.id // Ensure you retain the existing ID
+          id: currentBoard.id // Ensure existing ID is retained
         };
 
         this.store.dispatch(updateBoard({ board: updatedBoard }));
@@ -108,7 +125,6 @@ export class BoardModalFrameComponent implements OnInit {
   }
 
   private generateBoardId(): string {
-    
     return Math.random().toString(36).substr(2, 9); 
   }
 }

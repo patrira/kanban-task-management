@@ -1,7 +1,8 @@
-import { Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChildren, HostListener } from '@angular/core'; 
 import { FormControl, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { ModalShowService } from '../../services/modal-show.service';
+import { BoardService } from '../../services/board/board.service';  // Added BoardService import
 import { Column, Subtask, Task } from '../../modals/boards.interface';
 import { updateTask, addTask } from '../../state/tasks/tasks.actions';
 import { Observable } from 'rxjs';
@@ -13,7 +14,6 @@ import { selectCurrentTask } from '../../state/tasks/tasks.selectors';
   styleUrls: ['./task-modal-frame.component.scss']
 })
 export class TaskModalFrameComponent implements OnInit {
-
   @Input() modalName: string = '';
   @Input() titleValue: string = '';
   @Input() descriptionValue: string = '';
@@ -27,15 +27,14 @@ export class TaskModalFrameComponent implements OnInit {
   @ViewChildren('templateSubtask') subtasksInputChildren!: QueryList<ElementRef<HTMLInputElement>>;
   
   name = new FormControl('', Validators.required);
-  subtaskPlaceholders = ['e.g. Make coffee', 'e.g. Drink coffee & smile'];
-
   currentTask$: Observable<Task | undefined>; 
   taskId!: string;
-boardsService: any;
 
   constructor(
     private store: Store,
-    public modalShowService: ModalShowService
+    public modalShowService: ModalShowService,
+    public boardService: BoardService,  // Inject BoardService
+    private elementRef: ElementRef  // Detecting clicks outside modal
   ) {
     this.currentTask$ = this.store.pipe(
       select(selectCurrentTask, { taskId: this.taskId })
@@ -46,19 +45,22 @@ boardsService: any;
     this.name.setValue(this.titleValue);
   }
 
-  removeSubtask(subtaskIndex: number, event: Event) {
-    event.preventDefault();
-    this.subtasks.splice(subtaskIndex, 1);
+  // Close modal when clicking outside
+  @HostListener('document:click', ['$event'])
+  handleClickOutside(event: MouseEvent) {
+    const modalContent = this.elementRef.nativeElement.querySelector('.modal-content');
+    if (modalContent && !modalContent.contains(event.target)) {
+      this.modalShowService.closeModal();
+    }
   }
 
-  addNewSubtask(event: Event) {
-    event.preventDefault();
-    this.subtasks.push({ title: '', isCompleted: false });
+  closeModal() {
+    this.modalShowService.closeModal();
   }
 
+  // Save task method
   saveTask(event: Event, title: string, description: string, status: string) {
     event.preventDefault();
-    
     const subtasksArray = this.subtasksInputChildren.toArray();
     if (this.name.status === 'INVALID') {
       this.name.markAsDirty();
@@ -67,31 +69,30 @@ boardsService: any;
 
     this.currentTask$.subscribe((currentTask) => {
       if (currentTask) {
-        const updatedSubtasks = subtasksArray.map((subtaskInput, i) => ({
-          title: subtaskInput.nativeElement.value || this.subtasks[i].title,
-          isCompleted: this.subtasks[i].isCompleted
-        }));
-
         const updatedTask: Task = {
           ...currentTask,
           title,
           description,
-          subtasks: updatedSubtasks.filter(subtask => !!subtask.title),
+          subtasks: subtasksArray.map((subtaskInput, i) => ({
+            title: subtaskInput.nativeElement.value || this.subtasks[i].title,
+            isCompleted: this.subtasks[i].isCompleted
+          })).filter(subtask => !!subtask.title),
           status
         };
 
+        // Dispatch update task action
         this.store.dispatch(updateTask({
-          task: updatedTask,
-          boardId: ''
-        }));  
-        this.modalShowService.closeModal();
+          task: updatedTask, 
+          boardId: this.boardService.currentBoard?.id ?? ''  // Ensure boardId is always a string
+        }));
+        this.closeModal();
       }
     });
   }
 
+  // Create task method
   createTask(event: Event, title: string, description: string, status: string) {
     event.preventDefault();
-
     const subtasksArray = this.subtasksInputChildren.toArray();
     if (this.name.status === 'INVALID') {
       this.name.markAsDirty();
@@ -107,13 +108,15 @@ boardsService: any;
       })).filter(subtask => !!subtask.title),
       status,
       boardId: '',
-      id: ""
+      id: ''
     };
 
+    // Dispatch create task action
     this.store.dispatch(addTask({
       task: newTask,
-      boardId: ''
-    })); 
-    this.modalShowService.closeModal();
+      boardId: this.boardService.currentBoard?.id ?? ''  // Ensure boardId is a string
+    }));
+    this.closeModal();
   }
 }
+

@@ -7,24 +7,16 @@ import { openModal, closeModal } from '../state/ui/ui.actions';
 })
 export class ModalShowService {
   darkBackground = false;
+  showTaskModal = false;
+  showEditTaskModal = false;
+  showCreateTaskModal = false;
+  showDeleteBoardModal = false;
+  showDeleteTaskModal = false;
+  showCreatedBoardModal = false;
+  showEditBoardModal = false;
   showEditDeleteContainer = false;
-  showTaskModal: boolean = false;
-  showEditTaskModal: boolean = false;
-  showCreateTaskModal: boolean = false;
-  showDeleteBoardModal: boolean = false;
-  showDeleteTaskModal: boolean = false;
-  showCreatedBoardModal: boolean = false;
-  showEditBoardModal: boolean = false;
 
   constructor(private store: Store) {}
-
-  closeEditDeleteContainer() {
-    this.showEditDeleteContainer = false;
-  }
-
-  onEditDeleteContainerClick() {
-    this.showEditDeleteContainer = !this.showEditDeleteContainer;
-  }
 
   openTaskModal() {
     this.darkBackground = true;
@@ -68,9 +60,24 @@ export class ModalShowService {
     this.store.dispatch(openModal({ modalType: 'CreateBoardModal' }));
   }
 
+  // Add the onEditDeleteContainerClick method
+  onEditDeleteContainerClick() {
+    this.showEditDeleteContainer = !this.showEditDeleteContainer;  // Toggle the container state
+  }
+
+  closeEditDeleteContainer() {
+    this.showEditDeleteContainer = false;
+  }
+
   closeModal() {
     this.darkBackground = false;
-    this.showEditDeleteContainer = false;
+    this.showTaskModal = false;
+    this.showEditTaskModal = false;
+    this.showCreateTaskModal = false;
+    this.showDeleteBoardModal = false;
+    this.showDeleteTaskModal = false;
+    this.showCreatedBoardModal = false;
+    this.showEditBoardModal = false;
     this.store.dispatch(closeModal());
   }
 }

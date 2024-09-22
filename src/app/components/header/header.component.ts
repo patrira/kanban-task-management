@@ -25,7 +25,7 @@ export class HeaderComponent {
 
   openEditBoardModal() {
     this.modalShowService.openEditBoardModal();
-    this.modalShowService.closeEditDeleteContainer();
+    this.modalShowService.closeEditDeleteContainer();  // Now exists
   }
 
   handleAddNewTask() {
@@ -39,9 +39,9 @@ export class HeaderComponent {
     this.store.dispatch(toggleTheme());
     this.colorTheme.switchTheme();
   }
+
   openDeleteBoardModal() {
     this.modalShowService.openDeleteBoardModal();
-    this.modalShowService.closeEditDeleteContainer();
+    this.modalShowService.closeEditDeleteContainer();  // Now exists
   }
-  
 }

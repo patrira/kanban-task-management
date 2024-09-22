@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Column1, Board1, Boards, Board, Task } from '../../modals/boards.interface';
-import data from "../../../assets/data";
+import { Column1, Board1, Boards, Task, Board } from '../../modals/boards.interface';
+import data from '../../../assets/data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BoardService {
   boardData: Board1[] = data.boards;
-  currentBoard: Board | undefined;
+  currentBoard: Board1 | undefined;
   currentTask: Task | null = null;
-  boardsData: Boards | null = null;
   indexes = { taskIndex: 0, columnIndex: 0, dropColumnIndex: 0, dropTaskIndex: 0 };
 
-  constructor() { }
+  constructor() {
+    this.initializeBoards();
+  }
 
   getBoards(): Observable<Board1[]> {
     return of(this.boardData);
@@ -31,16 +32,19 @@ export class BoardService {
   initializeBoards() {
     const boards = this.getBoardsFromStorage();
     if (boards && boards.boards.length > 0) {
-      this.currentBoard = boards.boards[0]; // Set currentBoard to the first board by default
+      this.boardData = boards.boards.map((board: Board) => ({
+        ...board,
+        id: board.id ?? ''  // Ensure id is always a string
+      }));
+      this.currentBoard = this.boardData[0]; 
     } else {
-      const defaultBoards: Boards = {
-        boards: []
-      };
+      const defaultBoards: Boards = { boards: [] };
       this.setBoardsInStorage(defaultBoards);
       this.currentBoard = undefined;
     }
   }
 
+  // Add getTasks method
   getTasks(boardId: string): Task[] | undefined {
     const boards = this.getBoardsFromStorage();
     if (boards) {
@@ -50,17 +54,7 @@ export class BoardService {
     return undefined;
   }
 
-  addTask(boardId: string, task: Task) {
-    const boards = this.getBoardsFromStorage();
-    if (boards) {
-      const board = boards.boards.find(b => b.id === boardId);
-      if (board) {
-        board.columns[0].tasks.push(task);
-        this.setBoardsInStorage(boards);
-      }
-    }
-  }
-
+  // Add updateTask method
   updateTask(boardId: string, updatedTask: Task) {
     const boards = this.getBoardsFromStorage();
     if (boards) {
@@ -69,11 +63,12 @@ export class BoardService {
         board.columns.forEach(column => {
           column.tasks = column.tasks.map(task => task.id === updatedTask.id ? updatedTask : task);
         });
-        this.setBoardsInStorage(boards);
+        this.setBoardsInStorage(boards);  // Persist the update
       }
     }
   }
 
+  // Add deleteTask method
   deleteTask(boardId: string, taskId: string) {
     const boards = this.getBoardsFromStorage();
     if (boards) {
@@ -82,18 +77,38 @@ export class BoardService {
         board.columns.forEach(column => {
           column.tasks = column.tasks.filter(task => task.id !== taskId);
         });
-        this.setBoardsInStorage(boards);
+        this.setBoardsInStorage(boards);  // Persist the update
       }
     }
   }
 
-  setCurrentBoard(board: Board) {
-    this.currentBoard = board;
+  addTask(boardId: string, task: Task) {
+    const boards = this.getBoardsFromStorage();
+    if (boards) {
+      const board = boards.boards.find(b => b.id === boardId);
+      if (board) {
+        board.columns[0].tasks.push(task);  // Add task to first column
+        this.setBoardsInStorage(boards);    // Persist changes
+      }
+    }
   }
 
-  setCurrentTask(task: Task) {
-    this.currentTask = task;
+  addBoard(newBoard: Board1) {
+    const boards = this.getBoardsFromStorage();
+    if (boards) {
+      boards.boards.push(newBoard);
+      this.setBoardsInStorage(boards);  // Persist new board
+    }
   }
 
- 
+  addColumn(boardId: string, newColumn: Column1) {
+    const boards = this.getBoardsFromStorage();
+    if (boards) {
+      const board = boards.boards.find(b => b.id === boardId);
+      if (board) {
+        board.columns.push(newColumn);  // Add the new column to the board
+        this.setBoardsInStorage(boards);  // Persist changes
+      }
+    }
+  }
 }

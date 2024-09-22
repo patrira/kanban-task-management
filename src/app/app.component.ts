@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { loadBoards } from './state/board/board.actions';
 import { SidebarToggleService } from './services/sidebar-toggle.service';
 import { ModalShowService } from './services/modal-show.service';
-import { BoardService } from './services/board/board.service';  // Ensure correct import
+import { BoardService } from './services/board/board.service';  
 
 @Component({
   selector: 'app-root',

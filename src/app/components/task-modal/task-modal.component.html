@@ -1,7 +1,8 @@
 <div class="modal-head">
-    
     <h4 class="heading-l">{{boardService.currentTask?.title}}</h4>
-    <button (click)="openEditDeleteContainer()" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
+    <button (click)="openEditDeleteContainer()" class="btn-vertical-dots">
+        <img src="assets/icon-vertical-ellipsis.svg" alt="3 dots">
+    </button>
     <div *ngIf="showEditDeleteContainer" class="edit-delete-container">
         <button (click)="modalShowService.openEditTaskModal()" class="edit-task">Edit Task</button>
         <button (click)="openDeleteTaskModal()" class="delete-task">Delete Task</button>
@@ -22,13 +23,13 @@
     </div>
 </div>
 
-<div class="status-container">
+<div class="status-container" *ngIf="isCurrentBoardInitialized()">
     <label class="heading-s">Current Status</label>
     <select #status (change)="changeStatus(status.value, boardService.currentTask)" name="status" id="status-select" class="select">
         <option 
-          *ngFor="let column of boardService.currentBoard?.columns || []">
+          *ngFor="let column of boardService.currentBoard?.columns || []"
           [value]="column.name"
-          [selected]="column.name == boardsService.currentTask?.status">
+          [selected]="column.name == boardService.currentTask?.status">
           {{column.name}}
         </option>
     </select>

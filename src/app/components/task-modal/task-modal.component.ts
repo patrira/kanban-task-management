@@ -19,19 +19,28 @@ export class TaskModalComponent {
 
   constructor(
     private store: Store,
-  public modalShowService: ModalShowService,
-  public boardService: BoardService
+    public modalShowService: ModalShowService,
+    public boardService: BoardService
   ) {
     this.currentTask$ = this.store.select(selectCurrentTask, { taskId: this.taskId });
+  }
+
+  // Add the isCurrentBoardInitialized method
+  isCurrentBoardInitialized(): boolean {
+    return !!this.boardService.currentBoard;  // Returns true if currentBoard is initialized
   }
 
   openEditDeleteContainer() {
     this.showEditDeleteContainer = !this.showEditDeleteContainer;
   }
 
+  openEditTaskModal() {
+    this.modalShowService.openEditTaskModal();
+  }
+
   handleCheckboxClick(subtask: Subtask, i: number) {
     subtask.isCompleted = !subtask.isCompleted;
-    this.store.dispatch(updateSubtaskStatus({ subtask }));  
+    this.store.dispatch(updateSubtaskStatus({ subtask }));
   }
 
   changeStatus(value: string, task: Task | null) {
@@ -39,7 +48,7 @@ export class TaskModalComponent {
       task.status = value;
       this.store.dispatch(updateTask({
         task,
-        boardId: ''  
+        boardId: this.boardService.currentBoard?.id || ''
       }));
       this.modalShowService.closeModal();
     }

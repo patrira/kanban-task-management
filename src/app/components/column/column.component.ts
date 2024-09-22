@@ -28,7 +28,7 @@ export class ColumnComponent {
   onTaskClick(i: number) {
     this.boardService.currentTask = this.tasks[i];  
     this.modalShowService.openTaskModal();
-    this.boardService.indexes.columnIndex = this.columnIndex;
+    this.boardService.indexes.columnIndex = this.columnIndex;  // Fixed usage of indexes
     this.boardService.indexes.taskIndex = i;
   }
 
@@ -57,7 +57,7 @@ export class ColumnComponent {
     const updatedTask = this.boardService.currentTask!;
     this.store.dispatch(updateTask({
       task: updatedTask,
-      boardId: '' 
+      boardId: this.boardService.currentBoard?.id ?? ''  // Ensure boardId is always a string
     }));
   }
 
