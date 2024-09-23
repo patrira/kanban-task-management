@@ -25,7 +25,7 @@ export class EditTaskModalComponent {
   saveTask(task: Task) {
     this.store.dispatch(updateTask({
       task,
-      boardId: this.boardsService.currentBoard.id // Pass the correct boardId
+      boardId: this.boardsService.currentBoard.id 
     }));
   }
 }

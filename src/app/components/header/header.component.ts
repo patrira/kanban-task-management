@@ -20,12 +20,12 @@ export class HeaderComponent {
     public modalShowService: ModalShowService,
     private store: Store
   ) {
-    this.colorTheme.getTheme();  // Load theme on initialization
+    this.colorTheme.getTheme();  
   }
 
   openEditBoardModal() {
     this.modalShowService.openEditBoardModal();
-    this.modalShowService.closeEditDeleteContainer();  // Now exists
+    this.modalShowService.closeEditDeleteContainer();  
   }
 
   handleAddNewTask() {
@@ -42,6 +42,6 @@ export class HeaderComponent {
 
   openDeleteBoardModal() {
     this.modalShowService.openDeleteBoardModal();
-    this.modalShowService.closeEditDeleteContainer();  // Now exists
+    this.modalShowService.closeEditDeleteContainer();  
   }
 }

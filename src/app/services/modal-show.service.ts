@@ -60,9 +60,9 @@ export class ModalShowService {
     this.store.dispatch(openModal({ modalType: 'CreateBoardModal' }));
   }
 
-  // Add the onEditDeleteContainerClick method
+  
   onEditDeleteContainerClick() {
-    this.showEditDeleteContainer = !this.showEditDeleteContainer;  // Toggle the container state
+    this.showEditDeleteContainer = !this.showEditDeleteContainer;  
   }
 
   closeEditDeleteContainer() {

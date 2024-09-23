@@ -37,7 +37,7 @@ export class BoardModalFrameComponent implements OnInit {
     private store: Store,
     public modalShowService: ModalShowService,
     public sidebarService: SidebarToggleService,
-    private elementRef: ElementRef // Inject ElementRef for outside click detection
+    private elementRef: ElementRef 
   ) {
     this.currentBoard$ = this.store.select(selectCurrentBoard);
   }
@@ -45,17 +45,17 @@ export class BoardModalFrameComponent implements OnInit {
   ngOnInit() {
     this.name.setValue(this.titleValue);
     this.columnsCopy = [...this.columns];
-    document.addEventListener('click', this.handleOutsideClick.bind(this)); // Add listener for outside clicks
+    document.addEventListener('click', this.handleOutsideClick.bind(this)); 
   }
 
   ngOnDestroy() {
-    document.removeEventListener('click', this.handleOutsideClick.bind(this)); // Remove listener when component is destroyed
+    document.removeEventListener('click', this.handleOutsideClick.bind(this)); 
   }
 
   handleOutsideClick(event: MouseEvent) {
     const modalContent = this.elementRef.nativeElement.querySelector('.modal-content');
     if (!modalContent.contains(event.target)) {
-      this.modalShowService.closeModal();  // Close modal if clicked outside
+      this.modalShowService.closeModal();  
     }
   }
 
@@ -93,7 +93,7 @@ export class BoardModalFrameComponent implements OnInit {
           ...currentBoard,
           name: this.name.value || currentBoard.name,
           columns: updatedColumns,
-          id: currentBoard.id // Ensure existing ID is retained
+          id: currentBoard.id 
         };
 
         this.store.dispatch(updateBoard({ board: updatedBoard }));

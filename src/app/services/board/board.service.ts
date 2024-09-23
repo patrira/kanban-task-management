@@ -34,7 +34,7 @@ export class BoardService {
     if (boards && boards.boards.length > 0) {
       this.boardData = boards.boards.map((board: Board) => ({
         ...board,
-        id: board.id ?? ''  // Ensure id is always a string
+        id: board.id ?? ''  
       }));
       this.currentBoard = this.boardData[0]; 
     } else {
@@ -54,7 +54,6 @@ export class BoardService {
     return undefined;
   }
 
-  // Add updateTask method
   updateTask(boardId: string, updatedTask: Task) {
     const boards = this.getBoardsFromStorage();
     if (boards) {
@@ -63,12 +62,12 @@ export class BoardService {
         board.columns.forEach(column => {
           column.tasks = column.tasks.map(task => task.id === updatedTask.id ? updatedTask : task);
         });
-        this.setBoardsInStorage(boards);  // Persist the update
+        this.setBoardsInStorage(boards);  
       }
     }
   }
 
-  // Add deleteTask method
+  
   deleteTask(boardId: string, taskId: string) {
     const boards = this.getBoardsFromStorage();
     if (boards) {
@@ -77,7 +76,7 @@ export class BoardService {
         board.columns.forEach(column => {
           column.tasks = column.tasks.filter(task => task.id !== taskId);
         });
-        this.setBoardsInStorage(boards);  // Persist the update
+        this.setBoardsInStorage(boards);  
       }
     }
   }
@@ -87,8 +86,8 @@ export class BoardService {
     if (boards) {
       const board = boards.boards.find(b => b.id === boardId);
       if (board) {
-        board.columns[0].tasks.push(task);  // Add task to first column
-        this.setBoardsInStorage(boards);    // Persist changes
+        board.columns[0].tasks.push(task);  
+        this.setBoardsInStorage(boards);    
       }
     }
   }
@@ -97,7 +96,7 @@ export class BoardService {
     const boards = this.getBoardsFromStorage();
     if (boards) {
       boards.boards.push(newBoard);
-      this.setBoardsInStorage(boards);  // Persist new board
+      this.setBoardsInStorage(boards);  
     }
   }
 
@@ -106,8 +105,8 @@ export class BoardService {
     if (boards) {
       const board = boards.boards.find(b => b.id === boardId);
       if (board) {
-        board.columns.push(newColumn);  // Add the new column to the board
-        this.setBoardsInStorage(boards);  // Persist changes
+        board.columns.push(newColumn);  
+        this.setBoardsInStorage(boards);  
       }
     }
   }

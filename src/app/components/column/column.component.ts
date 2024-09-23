@@ -57,7 +57,7 @@ export class ColumnComponent {
     const updatedTask = this.boardService.currentTask!;
     this.store.dispatch(updateTask({
       task: updatedTask,
-      boardId: this.boardService.currentBoard?.id ?? ''  // Ensure boardId is always a string
+      boardId: this.boardService.currentBoard?.id ?? ''  
     }));
   }
 

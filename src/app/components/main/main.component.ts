@@ -20,10 +20,10 @@ export class MainComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Initialize currentBoard if needed
+    
     this.boardService.initializeBoards();
 
-    // Subscribe to the selected board observable
+    
     this.selectedBoardService.selectedBoard$.subscribe(board => {
       this.selectedBoard = board;
     });
@@ -38,6 +38,6 @@ export class MainComponent implements OnInit {
   }
 
   get columns(): Column[] {
-    return this.selectedBoard?.columns ?? []; // Use the selected board
+    return this.selectedBoard?.columns ?? []; 
   }
 }
