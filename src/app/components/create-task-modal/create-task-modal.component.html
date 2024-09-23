@@ -1,6 +1,5 @@
 <app-task-modal-frame modalName="Add New Task"
-[statusValues]="boardService.currentBoard.columns"
-buttonName="Create Task"
+  [statusValues]="boardService.currentBoard?.columns || []" 
+  buttonName="Create Task"
 >
 </app-task-modal-frame>
-

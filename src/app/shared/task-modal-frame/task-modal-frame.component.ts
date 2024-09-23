@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, QueryList, ViewChildren, HostList
 import { FormControl, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { ModalShowService } from '../../services/modal-show.service';
-import { BoardService } from '../../services/board/board.service';  // Added BoardService import
+import { BoardService } from '../../services/board/board.service';  
 import { Column, Subtask, Task } from '../../modals/boards.interface';
 import { updateTask, addTask } from '../../state/tasks/tasks.actions';
 import { Observable } from 'rxjs';
@@ -33,8 +33,8 @@ export class TaskModalFrameComponent implements OnInit {
   constructor(
     private store: Store,
     public modalShowService: ModalShowService,
-    public boardService: BoardService,  // Inject BoardService
-    private elementRef: ElementRef  // Detecting clicks outside modal
+    public boardService: BoardService,  
+    private elementRef: ElementRef  
   ) {
     this.currentTask$ = this.store.pipe(
       select(selectCurrentTask, { taskId: this.taskId })

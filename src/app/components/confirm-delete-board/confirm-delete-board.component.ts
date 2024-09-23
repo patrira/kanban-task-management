@@ -4,8 +4,9 @@ import { ModalShowService } from '../../services/modal-show.service';
 import { deleteBoard, setCurrentBoard } from '../../state/board/board.actions';
 import { toggleSidebar } from '../../state/ui/ui.actions';
 import { selectAllBoards } from '../../state/board/board.selectors';
-import { Board1 } from '../../modals/boards.interface'; // Ensure you are importing Board1
+import { Board1 } from '../../modals/boards.interface';
 import { Observable } from 'rxjs';
+import { BoardService } from '../../services/board/board.service';  // Correctly import BoardService
 
 @Component({
   selector: 'app-confirm-delete-board',
@@ -13,15 +14,15 @@ import { Observable } from 'rxjs';
   styleUrls: ['./confirm-delete-board.component.scss']
 })
 export class ConfirmDeleteBoardComponent {
-  boards$: Observable<Board1[]>;  // Changed to Board1[]
+  boards$: Observable<Board1[]>;
   currentBoardIndex: number = 0;
-boardService: any;
 
   constructor(
     private store: Store,
-    public modalShowService: ModalShowService
+    public modalShowService: ModalShowService,
+    public boardService: BoardService  // Correctly inject BoardService
   ) {
-    this.boards$ = this.store.select(selectAllBoards); 
+    this.boards$ = this.store.select(selectAllBoards);
   }
 
   deleteBoard() {
@@ -29,7 +30,7 @@ boardService: any;
       if (boards.length > 0) {
         const boardToDelete = boards[this.currentBoardIndex];
 
-        if (boardToDelete.id) {  // Check if id is defined
+        if (boardToDelete.id) {
           this.store.dispatch(deleteBoard({ boardId: boardToDelete.id }));
 
           const updatedBoards = boards.filter(board => board.id !== boardToDelete.id);
@@ -45,6 +46,6 @@ boardService: any;
   }
 
   cancelDelete() {
-    this.modalShowService.closeModal(); 
+    this.modalShowService.closeModal();
   }
 }

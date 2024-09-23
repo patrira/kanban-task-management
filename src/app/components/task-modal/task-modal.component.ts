@@ -13,7 +13,7 @@ import { selectCurrentTask } from '../../state/tasks/tasks.selectors';
   styleUrls: ['./task-modal.component.scss']
 })
 export class TaskModalComponent {
-  currentTask$: Observable<Task | undefined>;
+  currentTask$: Observable<Task | undefined> = new Observable<Task | undefined>();
   showEditDeleteContainer = false;
   taskId!: string;
 
@@ -22,12 +22,15 @@ export class TaskModalComponent {
     public modalShowService: ModalShowService,
     public boardService: BoardService
   ) {
-    this.currentTask$ = this.store.select(selectCurrentTask, { taskId: this.taskId });
+    if (this.boardService.currentTask?.id) {  // Ensure taskId is defined
+      this.currentTask$ = this.store.select(selectCurrentTask, { taskId: this.boardService.currentTask.id });
+    } else {
+      console.warn('No valid taskId found');
+    }
   }
 
-  // Add the isCurrentBoardInitialized method
   isCurrentBoardInitialized(): boolean {
-    return !!this.boardService.currentBoard;  // Returns true if currentBoard is initialized
+    return !!this.boardService.currentBoard;
   }
 
   openEditDeleteContainer() {

@@ -13,21 +13,19 @@ import { selectCurrentTask } from '../../state/tasks/tasks.selectors';
 export class EditTaskModalComponent {
   currentTask$: Observable<Task | undefined>;
   subtaskCopy: Subtask[] = [];
-boardsService: any;
+  boardsService: any;
   taskId!: string;
 
   constructor(private store: Store) {
-    
     this.currentTask$ = this.store.pipe(
       select(selectCurrentTask, { taskId: this.taskId })
     );
   }
 
   saveTask(task: Task) {
-    
     this.store.dispatch(updateTask({
       task,
-      boardId: ''
+      boardId: this.boardsService.currentBoard.id // Pass the correct boardId
     }));
   }
 }

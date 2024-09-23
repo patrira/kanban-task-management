@@ -28,7 +28,7 @@ export class ColumnComponent {
   onTaskClick(i: number) {
     this.boardService.currentTask = this.tasks[i];  
     this.modalShowService.openTaskModal();
-    this.boardService.indexes.columnIndex = this.columnIndex;  // Fixed usage of indexes
+    this.boardService.indexes.columnIndex = this.columnIndex;  
     this.boardService.indexes.taskIndex = i;
   }
 

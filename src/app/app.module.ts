@@ -23,6 +23,7 @@ import { TasksEffects } from './state/tasks/tasks.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { boardReducer } from './state/board/board.reducer';
 import { BoardEffects } from './state/board/board.effect';
+import { tasksReducer } from './state/tasks/tasks.reducer';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { BoardEffects } from './state/board/board.effect';
     AppRoutingModule,
     StoreModule.forRoot(),
     StoreModule.forFeature('board', boardReducer),
+    StoreModule.forFeature('tasks', tasksReducer),
     EffectsModule.forRoot([TasksEffects, BoardEffects]),
     EffectsModule.forFeature(),
     StoreDevtoolsModule.instrument({
